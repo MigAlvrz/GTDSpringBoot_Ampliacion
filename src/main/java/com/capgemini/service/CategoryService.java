@@ -2,7 +2,7 @@ package com.capgemini.service;
 
 import java.util.List;
 
-import com.capgemini.model.Category;
+import com.capgemini.model.CategoryVO;
 
 public interface CategoryService {
 	
