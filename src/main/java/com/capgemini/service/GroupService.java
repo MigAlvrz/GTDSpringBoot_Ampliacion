@@ -2,7 +2,7 @@ package com.capgemini.service;
 
 import java.util.List;
 
-import com.capgemini.model.Group;
+import com.capgemini.model.GroupVO;
 
 public interface GroupService {
 	

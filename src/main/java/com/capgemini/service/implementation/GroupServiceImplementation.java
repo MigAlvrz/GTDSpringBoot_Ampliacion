@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.capgemini.model.GroupVO;
 import com.capgemini.repository.GroupRepository;
 import com.capgemini.service.GroupService;
-import com.capgemini.service.GroupVO;
 
 public class GroupServiceImplementation implements GroupService {
 	
@@ -16,14 +16,14 @@ public class GroupServiceImplementation implements GroupService {
 
 	@Override
 	public GroupVO add(GroupVO group) {
-		if(findById(group.getId()==null))
+		if(findById(group.getIdgroup())==null)
 			return grRepo.save(group);
 		return null;
 	}
 
 	@Override
 	public GroupVO delete(GroupVO group) {
-		if(findById(group.getId())!=null) {
+		if(findById(group.getIdgroup())!=null) {
 			grRepo.delete(group);
 			return group;
 		}
@@ -32,9 +32,10 @@ public class GroupServiceImplementation implements GroupService {
 
 	@Override
 	public GroupVO deleteById(int id) {
-		if(findById(id)!=null) {
+		GroupVO gr = findById(id);
+		if(gr!=null) {
 			grRepo.deleteById(id);
-			return findById(id);
+			return gr;
 		}
 		return null;
 	}
