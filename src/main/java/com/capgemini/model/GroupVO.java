@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -83,7 +84,5 @@ public class GroupVO {
 				+ creation_date + ", tasks=" + tasks + ", users=" + users + "]";
 	}
 	
-	
-
 	
 }

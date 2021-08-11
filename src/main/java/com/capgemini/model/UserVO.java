@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+
 import java.util.List;
 import java.util.Objects;
 
@@ -105,9 +106,6 @@ public class UserVO {
 				+ ", status=" + status + ", admin=" + admin + ", tasks=" + tasks + ", categories=" + categories
 				+ ", groups=" + groups + "]";
 	}
-	
-	
-	
 	
 
 }

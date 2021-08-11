@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -181,6 +182,4 @@ public class TaskVO {
 				+ categoryTask + ", groupTask=" + groupTask + "]";
 	}
 	
-	
-
 }

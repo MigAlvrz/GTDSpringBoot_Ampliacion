@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -128,13 +129,5 @@ public class GroupUserVO {
 		return "GroupUserVO [idgroupUser=" + idgroupUser + ", isAdmin=" + isAdmin + ", userGroupUser=" + userGroupUser
 				+ ", groupGroupUser=" + groupGroupUser + "]";
 	}
-	
-	
-	
-	
-	
-
-	
-	
 
 }
