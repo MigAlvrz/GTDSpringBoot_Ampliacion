@@ -80,6 +80,78 @@ public class UserVO {
 		this.groups = groups;
 	}
 
+	public int getIduser() {
+		return iduser;
+	}
+
+	public void setIduser(int iduser) {
+		this.iduser = iduser;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public List<TaskVO> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<TaskVO> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<CategoryVO> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<CategoryVO> categories) {
+		this.categories = categories;
+	}
+
+	public List<GroupUserVO> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<GroupUserVO> groups) {
+		this.groups = groups;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(admin, categories, email, groups, iduser, login, password, status, tasks);

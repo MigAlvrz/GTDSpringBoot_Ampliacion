@@ -2,6 +2,8 @@ package com.capgemini.service;
 
 import java.util.List;
 
+import com.capgemini.model.UserVO;
+
 public interface UserService {
 	
 	public UserVO add(UserVO user);
