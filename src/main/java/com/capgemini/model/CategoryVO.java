@@ -50,6 +50,38 @@ public class CategoryVO {
 		this.userCategory = userCategory;
 	}
 
+	public int getIdcategory() {
+		return idcategory;
+	}
+
+	public void setIdcategory(int idcategory) {
+		this.idcategory = idcategory;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<TaskVO> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<TaskVO> tasks) {
+		this.tasks = tasks;
+	}
+
+	public UserVO getUserCategory() {
+		return userCategory;
+	}
+
+	public void setUserCategory(UserVO userCategory) {
+		this.userCategory = userCategory;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idcategory, name, tasks, userCategory);

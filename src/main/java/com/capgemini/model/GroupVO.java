@@ -59,6 +59,54 @@ public class GroupVO {
 		this.users = users;
 	}
 
+	public int getIdgroup() {
+		return idgroup;
+	}
+
+	public void setIdgroup(int idgroup) {
+		this.idgroup = idgroup;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreation_date() {
+		return creation_date;
+	}
+
+	public void setCreation_date(Date creation_date) {
+		this.creation_date = creation_date;
+	}
+
+	public List<TaskVO> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<TaskVO> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<GroupUserVO> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<GroupUserVO> users) {
+		this.users = users;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(creation_date, description, idgroup, name, tasks, users);
