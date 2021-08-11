@@ -1,0 +1,19 @@
+SUPER DOCUMENTO DE DEVELOPMENT GTD BACKEND AMP-G4
+
+Miguel, Pablo Pastor, Antonio.
+
+- Debe usar Spring Boot y Thymeleaf ("Primero la API" Raul dixit)
+
+- Debe realizar Tests Unitarios de la app y estar documentada con javadoc y Swagger
+
+	-Spring boot: Dependencias?
+
+Necesita servicios, repositorios serviceImpl
+
+Hay que hacer una tabla nueva -> Grupos
+
+Hay que pasar las vistas a thymleaf
+
+11/08/21
+
+ - Pastor hace el modelo de la base de datos JPA, Antonio hace servicios y repositorios, Miguel va mirando las views co Thymeleaf
