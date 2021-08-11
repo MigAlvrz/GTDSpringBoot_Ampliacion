@@ -1,5 +1,5 @@
 package com.capgemini.model;
 
-public class User {
+public class CategoryVO {
 
 }

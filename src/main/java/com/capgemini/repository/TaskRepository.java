@@ -3,9 +3,9 @@ package com.capgemini.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.model.Task;
+import com.capgemini.model.TaskVO;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Integer> {
+public interface TaskRepository extends JpaRepository<TaskVO, Integer> {
 
 }

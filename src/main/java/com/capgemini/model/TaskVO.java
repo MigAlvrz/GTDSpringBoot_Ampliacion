@@ -1,5 +1,5 @@
 package com.capgemini.model;
 
-public class Task {
+public class TaskVO {
 
 }

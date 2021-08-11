@@ -3,9 +3,9 @@ package com.capgemini.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.model.User;
+import com.capgemini.model.UserVO;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<UserVO, Integer> {
 
 }
