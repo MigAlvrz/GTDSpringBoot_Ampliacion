@@ -4,16 +4,19 @@ import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Task {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long task_id;
 
 	@Column
 	private String title;
@@ -30,16 +33,19 @@ public class Task {
 	@Column(nullable = true)
 	private Date finished;
 
-	@ManyToOne
+	@ManyToOne 
+	@JoinColumn(name="user_id")
 	private User user;
 
 	@ManyToOne
+	@JoinColumn(name="category_id")
 	private Category category;
 	
 	@Column
 	private Date currentDate = new Date();
 	
 	@ManyToOne
+	@JoinColumn(name="id")
 	private Group group;
 	
 	
@@ -65,14 +71,14 @@ public class Task {
 	 * @return the id
 	 */
 	public Long getId() {
-		return id;
+		return task_id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
-		this.id = id;
+		this.task_id = id;
 	}
 
 	/**
@@ -183,7 +189,7 @@ public class Task {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, comments, created, currentDate, finished, group, id, planned, title, user);
+		return Objects.hash(category, comments, created, currentDate, finished, group, task_id, planned, title, user);
 	}
 
 	@Override
@@ -198,7 +204,7 @@ public class Task {
 		return Objects.equals(category, other.category) && Objects.equals(comments, other.comments)
 				&& Objects.equals(created, other.created) && Objects.equals(currentDate, other.currentDate)
 				&& Objects.equals(finished, other.finished) && Objects.equals(group, other.group)
-				&& Objects.equals(id, other.id) && Objects.equals(planned, other.planned)
+				&& Objects.equals(task_id, other.task_id) && Objects.equals(planned, other.planned)
 				&& Objects.equals(title, other.title) && Objects.equals(user, other.user);
 	}
 }

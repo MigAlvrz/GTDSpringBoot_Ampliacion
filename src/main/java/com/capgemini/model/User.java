@@ -3,7 +3,6 @@ package com.capgemini.model;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,7 +17,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long user_id;
 
 	@Column
 	private String login;
@@ -36,11 +35,17 @@ public class User {
 	@Column
 	private boolean admin;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
+	@OneToMany(mappedBy = "user")
+	private List<Task> tasks;
+	
+	@OneToMany( mappedBy = "user")
 	private List<Category> categories;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
+	@OneToMany( mappedBy = "user")
 	private List<GroupUser> groupUser;
+	
+	@OneToMany( mappedBy = "admin")
+	private List<Group> groups;
 	
 	
 	public User() {}
@@ -49,14 +54,14 @@ public class User {
 	 * @return the id
 	 */
 	public Long getId() {
-		return id;
+		return user_id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
-		this.id = id;
+		this.user_id = id;
 	}
 
 	/**
@@ -146,9 +151,17 @@ public class User {
 		this.groupUser = groupUser;
 	}
 
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(admin, categories, email, groupUser, id, login, password, status);
+		return Objects.hash(admin, categories, email, groupUser, user_id, login, password, status);
 	}
 
 	@Override
@@ -162,7 +175,7 @@ public class User {
 		User other = (User) obj;
 		return admin == other.admin && Objects.equals(categories, other.categories)
 				&& Objects.equals(email, other.email) && Objects.equals(groupUser, other.groupUser)
-				&& Objects.equals(id, other.id) && Objects.equals(login, other.login)
+				&& Objects.equals(user_id, other.user_id) && Objects.equals(login, other.login)
 				&& Objects.equals(password, other.password) && status == other.status;
 	}
 

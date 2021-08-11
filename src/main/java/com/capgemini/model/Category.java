@@ -3,27 +3,30 @@ package com.capgemini.model;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+@Entity
 public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long category_id;
 	
 	@Column
 	private String name;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "category")
+	@OneToMany( mappedBy = "category")
 	private List<Task> tasks;
 	
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	public Category() {}
@@ -32,14 +35,14 @@ public class Category {
 	 * @return the id
 	 */
 	public Long getId() {
-		return id;
+		return category_id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
-		this.id = id;
+		this.category_id = id;
 	}
 
 	/**
@@ -79,7 +82,7 @@ public class Category {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, tasks, user);
+		return Objects.hash(category_id, name, tasks, user);
 	}
 
 	@Override
@@ -91,7 +94,7 @@ public class Category {
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(tasks, other.tasks)
+		return Objects.equals(category_id, other.category_id) && Objects.equals(name, other.name) && Objects.equals(tasks, other.tasks)
 				&& Objects.equals(user, other.user);
 	}
 

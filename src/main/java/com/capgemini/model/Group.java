@@ -4,12 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -17,7 +18,7 @@ public class Group {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private long id;
+	private long group_id;
 	
 	@Column
 	private String name;
@@ -28,18 +29,22 @@ public class Group {
 	@Column
 	private Date creation_date;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "task")
+	@OneToMany(mappedBy = "group")
 	private List<Task> tasks;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "group")
+	@OneToMany( mappedBy = "group")
 	private List<GroupUser> groupUser;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User admin;
 
 	public long getId() {
-		return id;
+		return group_id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.group_id = id;
 	}
 
 	public String getName() {
@@ -66,11 +71,11 @@ public class Group {
 		this.creation_date = creation_date;
 	}
 
-	public List<Task> getTasks() {
+	public List<Task> getTask() {
 		return tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTask(List<Task> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -82,9 +87,25 @@ public class Group {
 		this.groupUser = groupUser;
 	}
 
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public User getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(User admin) {
+		this.admin = admin;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(creation_date, description, groupUser, id, name, tasks);
+		return Objects.hash(creation_date, description, groupUser, group_id, name, tasks);
 	}
 
 	@Override
@@ -97,7 +118,7 @@ public class Group {
 			return false;
 		Group other = (Group) obj;
 		return Objects.equals(creation_date, other.creation_date) && Objects.equals(description, other.description)
-				&& Objects.equals(groupUser, other.groupUser) && id == other.id && Objects.equals(name, other.name)
+				&& Objects.equals(groupUser, other.groupUser) && group_id == other.group_id && Objects.equals(name, other.name)
 				&& Objects.equals(tasks, other.tasks);
 	}
 	
