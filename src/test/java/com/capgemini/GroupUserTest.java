@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -47,8 +48,8 @@ class GroupUserTest {
 		// necesario crear un usuario y varios grupos
 		UserVO user = new UserVO("usuario1", "usuario1@capgemini.com", "usuario1", UserStatus.ENABLED, true,
 				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>());
-		
-		//añadimos el user
+
+		// añadimos el user
 		userService.add(user);
 
 		GroupVO group1 = new GroupVO("grupo1", "grupo1 para testing", new Date(), new ArrayList<TaskVO>(),
@@ -61,8 +62,8 @@ class GroupUserTest {
 				new ArrayList<GroupUserVO>());
 		GroupVO group5 = new GroupVO("grupo5", "grupo5 para testing", new Date(), new ArrayList<TaskVO>(),
 				new ArrayList<GroupUserVO>());
-		
-		//añadimos los grupos
+
+		// añadimos los grupos
 		groupService.add(group1);
 		groupService.add(group2);
 		groupService.add(group3);
@@ -73,47 +74,65 @@ class GroupUserTest {
 		groupUserService.add(new GroupUserVO(false, user, group2));
 		groupUserService.add(new GroupUserVO(false, user, group3));
 		groupUserService.add(new GroupUserVO(true, user, group4));
-		groupUserService.add(new GroupUserVO(false, user, group5));
-		
+		groupUserService.add(new GroupUserVO(false, user, group5));		
+
+
 		assertEquals(5, groupUserService.listAll().size());
-		
-		
+
 		System.out.println();
 		System.out.println("________");
 	}
-	
+
 	@Test
 	@Order(2)
 	@DisplayName("Borrar groupusers")
 	void testDeletetGroupUser() {
 		System.out.println();
 		System.out.println("[TEST 2]");
-		
-		GroupUserVO groupUser=groupUserService.findById(2);
+
+		GroupUserVO groupUser = groupUserService.findById(2);
 		groupUserService.delete(groupUser);
-		assertEquals(4, groupUserService.listAll().size());		
-		
-		
+		assertEquals(4, groupUserService.listAll().size());
+
 		System.out.println();
 		System.out.println("________");
-		
+
 	}
-	
+
 	@Test
 	@Order(3)
 	@DisplayName("Borrar groupuser pasandole su id")
 	void testDeletetGroupUseryById() {
 		System.out.println();
 		System.out.println("[TEST 3]");
-		
+
 		groupUserService.deleteById(3);
 		assertEquals(3, groupUserService.listAll().size());
-		
-		
+
 		System.out.println();
 		System.out.println("________");
 	}
-	
-	
+
+	@Test
+	@Order(4)
+	@DisplayName("Buscar todos los usergroup")
+	void testListAllGroupUsers() {
+		System.out.println();
+		System.out.println("[TEST 4]");
+
+		List<GroupUserVO> groupUsers = groupUserService.listAll();
+		System.out.println("Los groupusers de nuestra BBDD son: ");
+
+		for (GroupUserVO gu : groupUsers) {
+			System.out.println("GroupUser id: " + gu.getIdgroupUser() + " con usuario "
+					+ userService.findById(gu.getUserGroupUser().getIduser()).getLogin() + " y grupo "
+					+ groupService.findById(gu.getGroupGroupUser().getIdgroup()).getName());
+		}
+
+		assertEquals(3, groupUsers.size());
+
+		System.out.println();
+		System.out.println("________");
+	}
 
 }
