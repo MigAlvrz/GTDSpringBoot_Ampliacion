@@ -99,6 +99,21 @@ class GroupUserTest {
 		
 	}
 	
+	@Test
+	@Order(3)
+	@DisplayName("Borrar groupuser pasandole su id")
+	void testDeletetGroupUseryById() {
+		System.out.println();
+		System.out.println("[TEST 3]");
+		
+		groupUserService.deleteById(3);
+		assertEquals(3, groupUserService.listAll().size());
+		
+		
+		System.out.println();
+		System.out.println("________");
+	}
+	
 	
 
 }
