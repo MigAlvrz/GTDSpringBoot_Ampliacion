@@ -16,11 +16,15 @@ public class UserServiceImplementation implements UserService{
 	@Autowired
 	private UserRepository userRepo;
 
+	/**
+	 * Muy bueno esto
+	 */
+	
 	@Override
 	public UserVO add(UserVO user) {
-		if(findById(user.getIduser())==null)
+		if(findById(user.getIduser())==null) 
 			return userRepo.save(user);
-		return null;
+		return null; 
 	}
 
 	@Override
@@ -53,6 +57,11 @@ public class UserServiceImplementation implements UserService{
 		if(optionalUser.isPresent())
 			return optionalUser.get();
 		return null;
+	}
+
+	@Override
+	public UserVO modfiy(UserVO user) {
+		return userRepo.save(user);
 	}
 
 }

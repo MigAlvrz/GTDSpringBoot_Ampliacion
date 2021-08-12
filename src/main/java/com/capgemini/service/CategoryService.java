@@ -11,5 +11,6 @@ public interface CategoryService {
 	public CategoryVO deleteById(int id);
 	public List<CategoryVO> listAll();
 	public CategoryVO findById(int id);
+	public CategoryVO modify(CategoryVO category);
 
 }

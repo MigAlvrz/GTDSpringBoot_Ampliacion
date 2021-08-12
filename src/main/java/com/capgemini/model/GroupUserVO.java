@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class GroupUserVO {
 	
@@ -21,10 +23,12 @@ public class GroupUserVO {
 	@Column
 	private boolean isAdmin;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="iduser")
 	private UserVO userGroupUser;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idgroup")
 	private GroupVO groupGroupUser;
