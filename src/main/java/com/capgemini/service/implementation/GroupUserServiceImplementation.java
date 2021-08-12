@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capgemini.model.GroupUserVO;
 import com.capgemini.repository.GroupUserRepository;
 import com.capgemini.service.GroupUserService;
 
+@Service
 public class GroupUserServiceImplementation implements GroupUserService {
 
 	@Autowired
@@ -32,7 +34,6 @@ public class GroupUserServiceImplementation implements GroupUserService {
 			GroupUserRepo.deleteById(id);
 			return GroupUser;
 		}
-			
 		return null;
 	}
 
