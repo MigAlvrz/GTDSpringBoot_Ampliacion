@@ -18,6 +18,8 @@ public class CategoryServiceImplementation implements CategoryService{
 
 	@Override
 	public CategoryVO add(CategoryVO category) {
+		if(findById(category.getIdcategory())==null)
+			return catRepo.save(category);		
 		return  catRepo.save(category);
 	}
 
@@ -53,6 +55,11 @@ public class CategoryServiceImplementation implements CategoryService{
 		if(optionalCat.isPresent())
 			return optionalCat.get();
 		return null;
+	}
+
+	@Override
+	public CategoryVO modify(CategoryVO category) {		
+		return catRepo.save(category);
 	}
 
 }
