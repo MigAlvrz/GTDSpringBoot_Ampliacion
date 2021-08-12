@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ public class GroupUserController {
 	}
 	
 	@DeleteMapping("/delete/{idgroupuser}")
-	public ResponseEntity<?> deleteById(@RequestBody int id){
-		GroupUserVO grUs = grUsService.deleteById(id);
+	public ResponseEntity<?> deleteById(@PathVariable int idgroupuser){
+		GroupUserVO grUs = grUsService.deleteById(idgroupuser);
 		return checkNull(grUs);
 	}
 	
@@ -44,8 +45,8 @@ public class GroupUserController {
 	}
 	
 	@GetMapping("/find/{idgroupuser}")
-	public ResponseEntity<?> findById(@RequestBody int id){
-		GroupUserVO grUs = grUsService.findById(id);
+	public ResponseEntity<?> findById(@PathVariable int idgroupuser){
+		GroupUserVO grUs = grUsService.findById(idgroupuser);
 		return checkNull(grUs);
 	}
 	

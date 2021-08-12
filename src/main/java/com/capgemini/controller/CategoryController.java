@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ public class CategoryController {
 	}
 	
 	@DeleteMapping("/delete/{idcategory}")
-	public ResponseEntity<?> deleteById(@RequestBody int id){
-		CategoryVO cat = catService.deleteById(id);
+	public ResponseEntity<?> deleteById(@PathVariable int idcategory){
+		CategoryVO cat = catService.deleteById(idcategory);
 		return checkNull(cat);
 	}
 	
@@ -44,8 +45,8 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/find/{idcategory}")
-	public ResponseEntity<?> findById(@RequestBody int id){
-		CategoryVO cat = catService.findById(id);
+	public ResponseEntity<?> findById(@PathVariable int idcategory){
+		CategoryVO cat = catService.findById(idcategory);
 		return checkNull(cat);
 	}
 	
