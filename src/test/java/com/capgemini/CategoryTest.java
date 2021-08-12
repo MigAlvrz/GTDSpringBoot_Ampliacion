@@ -3,6 +3,7 @@ package com.capgemini;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -83,6 +84,26 @@ class CategoryTest {
 		
 		System.out.println();
 		System.out.println("________");
+	}
+	
+	@Test
+	@Order(4)
+	@DisplayName("Buscar todos las categorias")
+	void testListAllCategories() {
+		System.out.println();
+		System.out.println("[TEST 4]");
+		
+		List<CategoryVO> categorias=catService.listAll();
+		System.out.println("Las categorias de nuestra BBDD son: ");
+		
+		for (CategoryVO c : categorias) {
+			System.out.println(c.getName());
+		}
+		
+		assertEquals(3, categorias.size());
+		
+		System.out.println();
+		System.out.println("________");		
 	}
 
 }
