@@ -22,28 +22,26 @@ public class UserServiceImplementation implements UserService{
 	
 	@Override
 	public UserVO add(UserVO user) {
-		if(findById(user.getIduser())==null) 
-			return userRepo.save(user);
-		return null; 
+		return userRepo.save(user);
 	}
 
 	@Override
-	public UserVO delete(UserVO user) {
+	public UserVO delete(UserVO user) throws IllegalArgumentException{
 		if(findById(user.getIduser())!=null) {
 			userRepo.delete(user);
 			return user;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
-	public UserVO deleteById(int id) {
+	public UserVO deleteById(int id) throws IllegalArgumentException{
 		UserVO user = findById(id);
 		if(user!=null) {
 			userRepo.deleteById(id);
 			return user;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
@@ -52,11 +50,11 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public UserVO findById(int id) {
+	public UserVO findById(int id) throws IllegalArgumentException{
 		Optional<UserVO> optionalUser = userRepo.findById(id);
 		if(optionalUser.isPresent())
 			return optionalUser.get();
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override

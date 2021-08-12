@@ -17,10 +17,7 @@ public class TaskServiceImplementation implements TaskService {
 
 	@Override
 	public TaskVO add(TaskVO task) {
-		if (taskRepo.findById(task.getIdtask()).isEmpty()) {
-			return taskRepo.save(task);
-		}
-		return null;
+		return taskRepo.save(task);
 	}
 	
 	@Override
@@ -29,22 +26,22 @@ public class TaskServiceImplementation implements TaskService {
 	}
 
 	@Override
-	public TaskVO delete(TaskVO task) {
+	public TaskVO delete(TaskVO task) throws IllegalArgumentException{
 		if (taskRepo.findById(task.getIdtask()).isPresent()) {
 			taskRepo.delete(task);
 			return task;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
-	public TaskVO deleteById(int id) {
+	public TaskVO deleteById(int id) throws IllegalArgumentException{
 		TaskVO task=taskRepo.findById(id).get();		
 		if (taskRepo.findById(id).isPresent()) {
 			taskRepo.deleteById(id);
 			return task;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
@@ -53,11 +50,11 @@ public class TaskServiceImplementation implements TaskService {
 	}
 
 	@Override
-	public TaskVO findById(int id) {
+	public TaskVO findById(int id) throws IllegalArgumentException{
 		if (taskRepo.findById(id).isPresent()) {
 			return taskRepo.findById(id).get();
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 

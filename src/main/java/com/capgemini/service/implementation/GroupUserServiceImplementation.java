@@ -22,19 +22,22 @@ public class GroupUserServiceImplementation implements GroupUserService {
 	}
 
 	@Override
-	public GroupUserVO delete(GroupUserVO groupUser) {
-		GroupUserRepo.delete(groupUser);
-		return groupUser;
+	public GroupUserVO delete(GroupUserVO groupUser) throws IllegalArgumentException{
+		if(findById(groupUser.getIdgroupUser())!=null) {
+			GroupUserRepo.delete(groupUser);
+			return groupUser;
+		}
+		throw new IllegalArgumentException();
 	}
 
 	@Override
-	public GroupUserVO deleteById(int id) {
+	public GroupUserVO deleteById(int id) throws IllegalArgumentException{
 		GroupUserVO GroupUser = findById(id);
 		if(GroupUser!=null) {
 			GroupUserRepo.deleteById(id);
 			return GroupUser;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
@@ -43,11 +46,11 @@ public class GroupUserServiceImplementation implements GroupUserService {
 	}
 
 	@Override
-	public GroupUserVO findById(int id) {
+	public GroupUserVO findById(int id) throws IllegalArgumentException{
 		Optional<GroupUserVO> GroupUser = GroupUserRepo.findById(id);
 		if(GroupUser.isPresent())
 			return GroupUser.get();
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 }

@@ -7,10 +7,10 @@ import com.capgemini.model.UserVO;
 public interface UserService {
 	
 	public UserVO add(UserVO user);
-	public UserVO delete(UserVO user);
-	public UserVO deleteById(int id);
+	public UserVO delete(UserVO user) throws IllegalArgumentException;
+	public UserVO deleteById(int id) throws IllegalArgumentException;
 	public List<UserVO> listAll();
-	public UserVO findById(int id);
+	public UserVO findById(int id) throws IllegalArgumentException;
 	public UserVO modfiy(UserVO user);
 
 }

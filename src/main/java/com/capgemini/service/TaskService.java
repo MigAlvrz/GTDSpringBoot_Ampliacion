@@ -8,9 +8,9 @@ public interface TaskService {
 	
 	public TaskVO add(TaskVO task);
 	public TaskVO modify(TaskVO task);
-	public TaskVO delete(TaskVO task);
-	public TaskVO deleteById(int id);
+	public TaskVO delete(TaskVO task) throws IllegalArgumentException;
+	public TaskVO deleteById(int id) throws IllegalArgumentException;
 	public List<TaskVO> listAll();
-	public TaskVO findById(int id);
+	public TaskVO findById(int id) throws IllegalArgumentException;
 
 }

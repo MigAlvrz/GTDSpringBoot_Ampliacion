@@ -7,10 +7,10 @@ import com.capgemini.model.CategoryVO;
 public interface CategoryService {
 	
 	public CategoryVO add(CategoryVO category);
-	public CategoryVO delete(CategoryVO category);
-	public CategoryVO deleteById(int id);
+	public CategoryVO delete(CategoryVO category) throws IllegalArgumentException;
+	public CategoryVO deleteById(int id) throws IllegalArgumentException;
 	public List<CategoryVO> listAll();
-	public CategoryVO findById(int id);
+	public CategoryVO findById(int id) throws IllegalArgumentException;
 	public CategoryVO modify(CategoryVO category);
 
 }

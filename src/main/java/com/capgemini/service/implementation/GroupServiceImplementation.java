@@ -17,42 +17,40 @@ public class GroupServiceImplementation implements GroupService {
 	private GroupRepository grRepo;
 
 	@Override
-	public GroupVO add(GroupVO group) {
-		if(findById(group.getIdgroup())==null)
-			return grRepo.save(group);
-		return null;
+	public GroupVO add(GroupVO group){
+		return grRepo.save(group);
 	}
 
 	@Override
-	public GroupVO delete(GroupVO group) {
+	public GroupVO delete(GroupVO group) throws IllegalArgumentException{
 		if(findById(group.getIdgroup())!=null) {
 			grRepo.delete(group);
 			return group;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
-	public GroupVO deleteById(int id) {
+	public GroupVO deleteById(int id) throws IllegalArgumentException{
 		GroupVO gr = findById(id);
 		if(gr!=null) {
 			grRepo.deleteById(id);
 			return gr;
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
-	public List<GroupVO> listAll() {
+	public List<GroupVO> listAll(){
 		return grRepo.findAll();
 	}
 
 	@Override
-	public GroupVO findById(int id) {
+	public GroupVO findById(int id) throws IllegalArgumentException{
 		Optional<GroupVO> optionalGr = grRepo.findById(id);
 		if(optionalGr.isPresent())
 			return optionalGr.get();
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override

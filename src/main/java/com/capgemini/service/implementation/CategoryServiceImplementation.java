@@ -17,31 +17,28 @@ public class CategoryServiceImplementation implements CategoryService{
 	private CategoryRepository catRepo;
 
 	@Override
-	public CategoryVO add(CategoryVO category) {
-		if(findById(category.getIdcategory())==null)
-			return catRepo.save(category);		
-		return  catRepo.save(category);
+	public CategoryVO add(CategoryVO category){
+		return catRepo.save(category);	
 	}
 
 	@Override
-	public CategoryVO delete(CategoryVO category) {
+	public CategoryVO delete(CategoryVO category) throws IllegalArgumentException{
 		if(findById(category.getIdcategory())!=null) {
 			catRepo.delete(category);
 			return category;
 		}
-		return null;
+		throw new IllegalArgumentException();
 			
 	}
 
 	@Override
-	public CategoryVO deleteById(int id) {
+	public CategoryVO deleteById(int id) throws IllegalArgumentException{
 		CategoryVO cat = findById(id);
 		if(cat!=null) {
 			catRepo.deleteById(id);
 			return cat;
 		}
-		return null;
-			
+		throw new IllegalArgumentException();	
 	}
 
 	@Override
@@ -50,11 +47,11 @@ public class CategoryServiceImplementation implements CategoryService{
 	}
 
 	@Override
-	public CategoryVO findById(int id) {
+	public CategoryVO findById(int id) throws IllegalArgumentException{
 		Optional<CategoryVO> optionalCat = catRepo.findById(id);
 		if(optionalCat.isPresent())
 			return optionalCat.get();
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	@Override
