@@ -11,5 +11,6 @@ public interface GroupService {
 	public GroupVO deleteById(int id);
 	public List<GroupVO> listAll();
 	public GroupVO findById(int id);
+	public GroupVO modify(GroupVO group);
 
 }

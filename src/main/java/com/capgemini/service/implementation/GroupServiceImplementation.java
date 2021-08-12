@@ -55,4 +55,9 @@ public class GroupServiceImplementation implements GroupService {
 		return null;
 	}
 
+	@Override
+	public GroupVO modify(GroupVO group) {		
+		return grRepo.save(group);
+	}
+
 }
