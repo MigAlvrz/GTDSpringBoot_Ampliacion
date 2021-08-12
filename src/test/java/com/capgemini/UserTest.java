@@ -18,7 +18,6 @@ import com.capgemini.model.GroupUserVO;
 import com.capgemini.model.TaskVO;
 import com.capgemini.model.UserStatus;
 import com.capgemini.model.UserVO;
-import com.capgemini.repository.UserRepository;
 import com.capgemini.service.UserService;
 
 @SpringBootTest
