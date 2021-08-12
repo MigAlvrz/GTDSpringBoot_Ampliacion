@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,6 +51,24 @@ class TaskTest {
 		taskService.add(new TaskVO("tarea5", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
 
 		assertEquals(5, taskService.listAll().size());
+		System.out.println("[DONE]");
 	}
 
+	@Test
+	@Order(2)
+	@DisplayName("Borrar tasks")
+	void testDeleteTask() {
+		System.out.println();
+		System.out.println("[TEST 2]");
+		
+		TaskVO task = taskService.findById(1);
+		taskService.delete(task);
+		assertEquals(4, taskService.listAll().size());
+		System.out.println("[DONE]");
+	}
+	
+	
+	
 }
+
+
