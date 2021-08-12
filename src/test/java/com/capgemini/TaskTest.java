@@ -95,6 +95,18 @@ class TaskTest {
 		System.out.println("[DONE]");
 	}
 	
+	@Test
+	@Order(5)
+	@DisplayName("Buscar Task por id")
+	void testFindTaskById() {
+		System.out.println();
+		System.out.println("[TEST 5]");
+		
+		System.out.println("Title with ID=3 --> "+taskService.findById(3).getTitle());
+		
+		assertEquals("tarea3", taskService.findById(3).getTitle());
+	}
+	
 	
 }
 
