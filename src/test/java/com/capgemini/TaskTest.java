@@ -79,6 +79,21 @@ class TaskTest {
 		System.out.println("[DONE]");
 	}
 	
+	@Test
+	@Order(4)
+	@DisplayName("Buscar todas las task")
+	void testListAllTasks() {
+		System.out.println();
+		System.out.println("[TEST 4]");
+		System.out.println("Current tasks in database: ");
+		List<TaskVO> tasks = taskService.listAll();
+		for (TaskVO t : tasks) {
+			System.out.println(t.getTitle());
+		}
+		
+		assertEquals(3, userService.listAll().size());
+		System.out.println("[DONE]");
+	}
 	
 	
 }
