@@ -11,4 +11,5 @@ public interface GroupUserService {
 	public GroupUserVO deleteById(int id) throws IllegalArgumentException;
 	public List<GroupUserVO> listAll();
 	public GroupUserVO findById(int id) throws IllegalArgumentException;
+	public GroupUserVO modify(GroupUserVO groupUser);
 }
