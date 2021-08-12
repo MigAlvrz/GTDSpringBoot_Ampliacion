@@ -67,6 +67,18 @@ class TaskTest {
 		System.out.println("[DONE]");
 	}
 	
+	@Test
+	@Order(3)
+	@DisplayName("Borrar Tasks con id")
+	void testeDeleteTaskById() {
+		System.out.println();
+		System.out.println("[TEST 3]");
+		taskService.deleteById(2);
+		
+		assertEquals(3, userService.listAll().size());
+		System.out.println("[DONE]");
+	}
+	
 	
 	
 }
