@@ -44,5 +44,23 @@ class UserTest {
 		System.out.println();
 		System.out.println("________");
 	}
+	
+	@Test
+	@Order(2)
+	@DisplayName("Borrar usuarios")
+	void testDeletetUser() {
+		System.out.println();
+		System.out.println("[TEST 1]");
+		
+		UserVO user=userService.findById(2);
+		
+		userService.delete(user);
+		
+		assertEquals(1, userService.listAll().size());
+		
+		System.out.println();
+		System.out.println("________");
+	}
+
 
 }
