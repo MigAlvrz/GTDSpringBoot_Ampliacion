@@ -121,5 +121,28 @@ class CategoryTest {
 		System.out.println("________");
 		
 	}
+	
+	@Test
+	@Order(6)
+	@DisplayName("Modificar categoria")
+	void testModifyCategory() {
+		System.out.println();
+		System.out.println("[TEST 6]");
+		
+		CategoryVO category=catService.findById(1);
+		System.out.println("La categoria con id[1] es: "+catService.findById(1).getName());
+		
+		category.setName("categoria principal");
+		
+		catService.modify(category);
+		System.out.println("Tras los cambios:");
+		System.out.println("La categoria con id[1] es: "+catService.findById(1).getName());
+		
+		assertEquals("categoria principal", catService.findById(1).getName());
+		
+		System.out.println();
+		System.out.println("________");		
+		
+	}
 
 }
