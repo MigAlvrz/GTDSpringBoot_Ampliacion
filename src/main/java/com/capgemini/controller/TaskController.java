@@ -44,7 +44,9 @@ public class TaskController {
 		return new ResponseEntity<>(taskService.listAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/find/{UserId")
+	
+	
+	@GetMapping("/find/{UserId}")
 	public ResponseEntity<?> findById(@PathVariable int userId) {
 		TaskVO task = taskService.findById(userId);
 		return checkNull(task);
