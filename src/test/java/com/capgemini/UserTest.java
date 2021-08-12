@@ -103,6 +103,23 @@ class UserTest {
 
 		System.out.println();
 		System.out.println("________");
+	}	
+
+	@Test
+	@Order(5)
+	@DisplayName("Buscar usuarios por id")
+	void testFinById() {
+		System.out.println();
+		System.out.println("[TEST 5]");
+
+				
+		System.out.println("El usuario con id[1] es: "+userService.findById(1).getLogin());
+		
+		
+		assertEquals("usuario1", userService.findById(1).getLogin());
+
+		System.out.println();
+		System.out.println("________");
 	}
 
 
