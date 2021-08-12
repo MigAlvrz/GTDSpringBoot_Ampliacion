@@ -59,4 +59,9 @@ public class UserServiceImplementation implements UserService{
 		return null;
 	}
 
+	@Override
+	public UserVO modfiy(UserVO user) {
+		return userRepo.save(user);
+	}
+
 }

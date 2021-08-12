@@ -11,5 +11,6 @@ public interface UserService {
 	public UserVO deleteById(int id);
 	public List<UserVO> listAll();
 	public UserVO findById(int id);
+	public UserVO modfiy(UserVO user);
 
 }
