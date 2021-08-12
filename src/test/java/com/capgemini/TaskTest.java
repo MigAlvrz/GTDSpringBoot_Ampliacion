@@ -32,9 +32,6 @@ class TaskTest {
 	@Autowired
 	private TaskService taskService;
 	
-	@Autowired
-	private UserService userService;
-	
 	@Test
 	@Order(1)
 	@DisplayName("Insertar tarea")
@@ -51,7 +48,7 @@ class TaskTest {
 		taskService.add(new TaskVO("tarea5", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
 
 		assertEquals(5, taskService.listAll().size());
-		System.out.println("[DONE]");
+		System.out.println("[DONE]\n");
 	}
 
 	@Test
@@ -63,8 +60,10 @@ class TaskTest {
 		
 		TaskVO task = taskService.findById(1);
 		taskService.delete(task);
+
+		
 		assertEquals(4, taskService.listAll().size());
-		System.out.println("[DONE]");
+		System.out.println("[DONE]\n");
 	}
 	
 	@Test
@@ -73,10 +72,11 @@ class TaskTest {
 	void testeDeleteTaskById() {
 		System.out.println();
 		System.out.println("[TEST 3]");
-		taskService.deleteById(2);
 		
-		assertEquals(3, userService.listAll().size());
-		System.out.println("[DONE]");
+		taskService.deleteById(2);
+
+		assertEquals(3, taskService.listAll().size());
+		System.out.println("[DONE]\n");
 	}
 	
 	@Test
@@ -91,8 +91,8 @@ class TaskTest {
 			System.out.println(t.getTitle());
 		}
 		
-		assertEquals(3, userService.listAll().size());
-		System.out.println("[DONE]");
+		assertEquals(3, taskService.listAll().size());
+		System.out.println("[DONE]\n");
 	}
 	
 	@Test
@@ -105,6 +105,28 @@ class TaskTest {
 		System.out.println("Title with ID=3 --> "+taskService.findById(3).getTitle());
 		
 		assertEquals("tarea3", taskService.findById(3).getTitle());
+		System.out.println("[DONE]\n");
+	}
+	
+	@Test
+	@Order(6)
+	@DisplayName("Modificar Task")
+	void testModifyTask() {
+		System.out.println();
+		System.out.println("[TEST 6]");
+		
+		TaskVO task = taskService.findById(4);
+		LocalDate newPlanned = task.getPlanned().plusDays(1);
+		System.out.println("Task with id=4 is "+ task.getTitle()+"\n and was scheduled for "+task.getPlanned());
+		task.setTitle("newTitle4");
+		task.setPlanned(newPlanned);
+		taskService.modify(task);
+		System.out.println("New title: "+task.getTitle()+"\nNew planned finished time: "+task.getPlanned());
+		
+		assertEquals("newTitle4", taskService.findById(4).getTitle());
+		assertEquals(newPlanned, taskService.findById(4).getPlanned());
+		
+		System.out.println("[DONE]\n");
 	}
 	
 	
