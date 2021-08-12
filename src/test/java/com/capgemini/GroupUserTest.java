@@ -75,8 +75,7 @@ class GroupUserTest {
 		groupUserService.add(new GroupUserVO(false, user, group2));
 		groupUserService.add(new GroupUserVO(false, user, group3));
 		groupUserService.add(new GroupUserVO(true, user, group4));
-		groupUserService.add(new GroupUserVO(false, user, group5));		
-
+		groupUserService.add(new GroupUserVO(false, user, group5));
 
 		assertEquals(5, groupUserService.listAll().size());
 
@@ -135,50 +134,56 @@ class GroupUserTest {
 		System.out.println();
 		System.out.println("________");
 	}
-	
+
 	@Test
 	@Order(5)
 	@DisplayName("Buscar groupuser por id")
 	void testFindCategoriesById() {
 		System.out.println();
 		System.out.println("[TEST 5]");
-		
-		System.out.println("El groupuser con id[1] es: "+groupUserService.findById(1).getIdgroupUser());
-		
+
+		System.out.println("El groupuser con id[1] es: " + groupUserService.findById(1).getIdgroupUser());
+
 //		assertEquals("usuario1", groupUserService.findById(1).getUserGroupUser().getLogin());
 		assertTrue((groupUserService.findById(1).getClass()).equals(GroupUserVO.class));
-		
+
 		System.out.println();
 		System.out.println("________");
-		
+
 	}
-	
-//	@Test
-//	@Order(6)
-//	@DisplayName("Modificar groupuser")
-//	void testModifyCategory() {
-//		System.out.println();
-//		System.out.println("[TEST 6]");
-//		
-//		//le cambiamos el usuario
-//		
-//		GroupUserVO groupUser=groupUserService.findById(1);
-//		System.out.println("El usuario del gropuuser con id[1] es: "+groupUser.getUserGroupUser().getLogin());
-//		
-//		UserVO userModify= new UserVO("userModify", "userModify@capgemini.com", "userModify", UserStatus.ENABLED, true,
-//				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>());
-//		groupUser.setUserGroupUser(userModify);
-//		
-//		groupUserService.
-//		catService.modify(category);
-//		System.out.println("Tras los cambios:");
-//		System.out.println("La categoria con id[1] es: "+catService.findById(1).getName());
-//		
-//		assertEquals("categoria principal", catService.findById(1).getName());
-//		
-//		System.out.println();
-//		System.out.println("________");		
-//		
-//	}
+
+	@Test
+	@Order(6)
+	@DisplayName("Modificar groupuser")
+	void testModifyCategory() {
+		System.out.println();
+		System.out.println("[TEST 6]");
+
+		// le cambiamos el usuario
+
+		GroupUserVO groupUser = groupUserService.findById(1);
+		System.out.println("El usuario del groupuser con id[1] es: " + groupUser.getUserGroupUser().getLogin());
+		
+		//creamos un nuevo usuario
+		UserVO userModify= new UserVO("userModify", "userModify@capgemini.com", "userModify", UserStatus.ENABLED, true,
+				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>());
+		
+		//lo persistimos en BBDD
+		userService.add(userModify);
+
+		//y lo seteamos en el groupUser
+		groupUser.setUserGroupUser(userModify);
+
+		groupUserService.modify(groupUser);
+
+		System.out.println("Tras los cambios:");
+		System.out.println("El usuario del groupuser con id[1] es: " + groupUser.getUserGroupUser().getLogin());
+
+		assertEquals("userModify", groupUserService.findById(1).getUserGroupUser().getLogin());
+
+		System.out.println();
+		System.out.println("________");
+
+	}
 
 }
