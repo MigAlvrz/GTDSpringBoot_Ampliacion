@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capgemini.model.UserVO;
 import com.capgemini.repository.UserRepository;
 import com.capgemini.service.UserService;
 
+@Service
 public class UserServiceImplementation implements UserService{
 	
 	@Autowired

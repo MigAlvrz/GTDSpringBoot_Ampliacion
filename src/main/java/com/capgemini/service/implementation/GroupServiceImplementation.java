@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capgemini.model.GroupVO;
 import com.capgemini.repository.GroupRepository;
 import com.capgemini.service.GroupService;
 
+@Service
 public class GroupServiceImplementation implements GroupService {
 	
 	@Autowired

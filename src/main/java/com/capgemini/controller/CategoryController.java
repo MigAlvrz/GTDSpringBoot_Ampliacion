@@ -21,7 +21,7 @@ public class CategoryController {
 	CategoryService catService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(CategoryVO category){
+	public ResponseEntity<?> add(@RequestBody CategoryVO category){
 		CategoryVO cat = catService.add(category);
 		return checkNull(cat);
 	}
@@ -32,7 +32,7 @@ public class CategoryController {
 		return checkNull(cat);
 	}
 	
-	@DeleteMapping("/delete/{categoryId}")
+	@DeleteMapping("/delete/{idcategory}")
 	public ResponseEntity<?> deleteById(@RequestBody int id){
 		CategoryVO cat = catService.deleteById(id);
 		return checkNull(cat);
@@ -43,7 +43,7 @@ public class CategoryController {
 		return new ResponseEntity<>(catService.listAll(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/find/{categoryId}")
+	@GetMapping("/find/{idcategory}")
 	public ResponseEntity<?> findById(@RequestBody int id){
 		CategoryVO cat = catService.findById(id);
 		return checkNull(cat);

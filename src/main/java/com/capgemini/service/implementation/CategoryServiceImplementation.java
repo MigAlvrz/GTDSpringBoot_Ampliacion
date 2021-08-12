@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capgemini.model.CategoryVO;
 import com.capgemini.repository.CategoryRepository;
 import com.capgemini.service.CategoryService;
 
+@Service
 public class CategoryServiceImplementation implements CategoryService{
 	
 	@Autowired
