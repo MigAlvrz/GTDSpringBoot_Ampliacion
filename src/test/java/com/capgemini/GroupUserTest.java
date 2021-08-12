@@ -1,6 +1,7 @@
 package com.capgemini;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,6 +134,23 @@ class GroupUserTest {
 
 		System.out.println();
 		System.out.println("________");
+	}
+	
+	@Test
+	@Order(5)
+	@DisplayName("Buscar groupuser por id")
+	void testFindCategoriesById() {
+		System.out.println();
+		System.out.println("[TEST 5]");
+		
+		System.out.println("El groupuser con id[1] es: "+groupUserService.findById(1).getIdgroupUser());
+		
+//		assertEquals("usuario1", groupUserService.findById(1).getUserGroupUser().getLogin());
+		assertTrue((groupUserService.findById(1).getClass()).equals(GroupUserVO.class));
+		
+		System.out.println();
+		System.out.println("________");
+		
 	}
 
 }
