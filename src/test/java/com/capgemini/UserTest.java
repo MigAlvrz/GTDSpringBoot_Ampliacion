@@ -38,8 +38,10 @@ class UserTest {
 				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
 		userService.add(new UserVO("usuario2", "usuario2@capgemini.com", "usuario2", UserStatus.DISABLED, false,
 				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
+		userService.add(new UserVO("usuario3", "usuario3@capgemini.com", "usuario3", UserStatus.DISABLED, false,
+				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
 		
-		assertEquals(2, userService.listAll().size());
+		assertEquals(3, userService.listAll().size());
 		
 		System.out.println();
 		System.out.println("________");
@@ -50,17 +52,33 @@ class UserTest {
 	@DisplayName("Borrar usuarios")
 	void testDeletetUser() {
 		System.out.println();
-		System.out.println("[TEST 1]");
+		System.out.println("[TEST 2]");
 		
 		UserVO user=userService.findById(2);
 		
 		userService.delete(user);
+		
+		assertEquals(2, userService.listAll().size());
+		
+		System.out.println();
+		System.out.println("________");
+	}
+	
+	@Test
+	@Order(3)
+	@DisplayName("Borrar usuarios pasandole su id")
+	void testDeletetUserById() {
+		System.out.println();
+		System.out.println("[TEST 3]");
+		
+		userService.deleteById(3);
 		
 		assertEquals(1, userService.listAll().size());
 		
 		System.out.println();
 		System.out.println("________");
 	}
+
 
 
 }
