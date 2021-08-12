@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -82,6 +83,28 @@ class GroupTest {
 		
 		System.out.println();
 		System.out.println("________");
+	}
+	
+	@Test
+	@Order(4)
+	@DisplayName("Buscar todos los grupos")
+	void testListAllUsers() {
+		System.out.println();
+		System.out.println("[TEST 5]");
+		
+		List<GroupVO> grupos = groupService.listAll();
+		
+		System.out.println("Los grupos de nuestra BBDD son:");
+		
+		for (GroupVO g : grupos) {
+			System.out.println(g.getName());
+		}
+		
+		assertEquals(3, groupService.listAll().size());
+		
+		
+		System.out.println();
+		System.out.println("________");		
 	}
 
 }
