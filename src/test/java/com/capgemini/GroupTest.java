@@ -68,5 +68,20 @@ class GroupTest {
 		System.out.println("________");
 		
 	}
+	
+	@Test
+	@Order(3)
+	@DisplayName("Borrar grupos pasandole su id")
+	void testDeletetUserById() {
+		System.out.println();
+		System.out.println("[TEST 3]");
+		
+		groupService.deleteById(3);
+		
+		assertEquals(3, groupService.listAll().size());
+		
+		System.out.println();
+		System.out.println("________");
+	}
 
 }
