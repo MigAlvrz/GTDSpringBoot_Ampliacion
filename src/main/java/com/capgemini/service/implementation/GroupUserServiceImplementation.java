@@ -53,4 +53,9 @@ public class GroupUserServiceImplementation implements GroupUserService {
 		throw new IllegalArgumentException();
 	}
 
+	@Override
+	public GroupUserVO modify(GroupUserVO groupUser) {
+		return GroupUserRepo.save(groupUser);
+	}
+
 }
