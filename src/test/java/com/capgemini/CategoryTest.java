@@ -54,4 +54,20 @@ class CategoryTest {
 		System.out.println("________");
 	}
 
+	@Test
+	@Order(2)
+	@DisplayName("Borrar categorias")
+	void testDeletetCategory() {
+		System.out.println();
+		System.out.println("[TEST 2]");
+
+		CategoryVO category = catService.findById(2);
+		catService.delete(category);
+		assertEquals(4, catService.listAll().size());
+
+		System.out.println();
+		System.out.println("________");
+
+	}
+
 }
