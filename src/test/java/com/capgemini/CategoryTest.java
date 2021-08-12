@@ -69,5 +69,20 @@ class CategoryTest {
 		System.out.println("________");
 
 	}
+	
+	@Test
+	@Order(3)
+	@DisplayName("Borrar categorias pasandole su id")
+	void testDeletetCategoryById() {
+		System.out.println();
+		System.out.println("[TEST 3]");
+		
+		catService.deleteById(3);
+		assertEquals(3, catService.listAll().size());
+		
+		
+		System.out.println();
+		System.out.println("________");
+	}
 
 }
