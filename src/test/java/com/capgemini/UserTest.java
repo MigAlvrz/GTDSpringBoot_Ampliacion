@@ -18,6 +18,7 @@ import com.capgemini.model.GroupUserVO;
 import com.capgemini.model.TaskVO;
 import com.capgemini.model.UserStatus;
 import com.capgemini.model.UserVO;
+import com.capgemini.repository.UserRepository;
 import com.capgemini.service.UserService;
 
 @SpringBootTest
@@ -87,40 +88,63 @@ class UserTest {
 	@Test
 	@Order(4)
 	@DisplayName("Buscar todos los usuarios")
-	void testListAll() {
+	void testListAllUsers() {
 		System.out.println();
 		System.out.println("[TEST 4]");
 
 		List<UserVO> usuarios = userService.listAll();
-		
+
 		System.out.println("Los usuarios de nuestra BBDD son:");
-		
+
 		for (UserVO u : usuarios) {
 			System.out.println(u.getLogin());
 		}
-		
+
 		assertEquals(3, userService.listAll().size());
 
 		System.out.println();
 		System.out.println("________");
-	}	
+	}
 
 	@Test
 	@Order(5)
 	@DisplayName("Buscar usuarios por id")
-	void testFinById() {
+	void testFinUserById() {
 		System.out.println();
 		System.out.println("[TEST 5]");
 
-				
-		System.out.println("El usuario con id[1] es: "+userService.findById(1).getLogin());
-		
-		
+		System.out.println("El usuario con id[1] es: " + userService.findById(1).getLogin());
+
 		assertEquals("usuario1", userService.findById(1).getLogin());
 
 		System.out.println();
 		System.out.println("________");
 	}
 
+	@Test
+	@Order(6)
+	@DisplayName("Modificar usuarios")
+	void testModifyUser() {
+		System.out.println();
+		System.out.println("[TEST 6]");
+
+		UserVO user = userService.findById(1);
+		System.out.println("El usuario con id[1] es: " + userService.findById(1).getLogin()
+				+ " y tiene la siguiente contraseña: " + userService.findById(1).getPassword());
+
+		user.setLogin("admin");
+		user.setPassword("admin");
+		
+		userService.modfiy(user);
+		System.out.println("Tras los cambios");
+		System.out.println("El usuario con id[1] es: " + userService.findById(1).getLogin()
+				+ " y tiene la siguiente contraseña: " + userService.findById(1).getPassword());
+		
+
+		assertEquals("admin", userService.findById(1).getLogin());
+
+		System.out.println();
+		System.out.println("________");
+	}
 
 }
