@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -82,5 +81,24 @@ class GroupUserTest {
 		System.out.println();
 		System.out.println("________");
 	}
+	
+	@Test
+	@Order(2)
+	@DisplayName("Borrar groupusers")
+	void testDeletetGroupUser() {
+		System.out.println();
+		System.out.println("[TEST 2]");
+		
+		GroupUserVO groupUser=groupUserService.findById(2);
+		groupUserService.delete(groupUser);
+		assertEquals(4, groupUserService.listAll().size());		
+		
+		
+		System.out.println();
+		System.out.println("________");
+		
+	}
+	
+	
 
 }
