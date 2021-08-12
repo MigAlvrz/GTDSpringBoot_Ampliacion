@@ -109,7 +109,7 @@ class UserTest {
 	@Test
 	@Order(5)
 	@DisplayName("Buscar usuarios por id")
-	void testFinUserById() {
+	void testFindUserById() {
 		System.out.println();
 		System.out.println("[TEST 5]");
 

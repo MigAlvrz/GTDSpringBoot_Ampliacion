@@ -105,5 +105,21 @@ class CategoryTest {
 		System.out.println();
 		System.out.println("________");		
 	}
+	
+	@Test
+	@Order(5)
+	@DisplayName("Buscar categorias por id")
+	void testFindCategoriesById() {
+		System.out.println();
+		System.out.println("[TEST 5]");
+		
+		System.out.println("La categoria con id[1] es: "+catService.findById(1).getName());
+		
+		assertEquals("categoria1", catService.findById(1).getName());
+		
+		System.out.println();
+		System.out.println("________");
+		
+	}
 
 }
