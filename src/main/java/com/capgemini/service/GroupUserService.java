@@ -8,7 +8,7 @@ public interface GroupUserService {
 
 	public GroupUserVO add(GroupUserVO groupUser);
 	public GroupUserVO delete(GroupUserVO groupUser);
-	public GroupUserVO deletebyId(int id);
+	public GroupUserVO deleteById(int id);
 	public List<GroupUserVO> listAll();
 	public GroupUserVO findById(int id);
 }

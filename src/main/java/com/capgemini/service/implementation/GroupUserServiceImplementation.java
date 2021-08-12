@@ -28,7 +28,7 @@ public class GroupUserServiceImplementation implements GroupUserService {
 	}
 
 	@Override
-	public GroupUserVO deletebyId(int id) {
+	public GroupUserVO deleteById(int id) {
 		GroupUserVO GroupUser = findById(id);
 		if(GroupUser!=null) {
 			GroupUserRepo.deleteById(id);
