@@ -122,5 +122,31 @@ class GroupTest {
 		System.out.println("________");
 		
 	}
+	
+	@Test
+	@Order(6)
+	@DisplayName("Modificar grupos")
+	void testModifyGroup() {
+		System.out.println();
+		System.out.println("[TEST 6]");
+		
+		GroupVO group= groupService.findById(1);
+		
+		System.out.println("El grupo con id[1] es: "+groupService.findById(1).getName());
+		
+		group.setName("grupo1 - modificado");
+		
+		groupService.modify(group);
+		
+		System.out.println("Tras los cambios");
+		System.out.println("El grupo con id[1] es: "+groupService.findById(1).getName());
+		
+		assertEquals("grupo1 - modificado",groupService.findById(1).getName());
+		
+		
+		System.out.println();
+		System.out.println("________");
+		
+	}
 
 }
