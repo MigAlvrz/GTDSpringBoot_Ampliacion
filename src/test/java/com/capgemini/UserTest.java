@@ -3,6 +3,7 @@ package com.capgemini;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -40,45 +41,69 @@ class UserTest {
 				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
 		userService.add(new UserVO("usuario3", "usuario3@capgemini.com", "usuario3", UserStatus.DISABLED, false,
 				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
-		
-		assertEquals(3, userService.listAll().size());
-		
+		userService.add(new UserVO("usuario4", "usuario4@capgemini.com", "usuario4", UserStatus.DISABLED, false,
+				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
+		userService.add(new UserVO("usuario5", "usuario5@capgemini.com", "usuario5", UserStatus.DISABLED, false,
+				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>()));
+
+		assertEquals(5, userService.listAll().size());
+
 		System.out.println();
 		System.out.println("________");
 	}
-	
+
 	@Test
 	@Order(2)
 	@DisplayName("Borrar usuarios")
 	void testDeletetUser() {
 		System.out.println();
 		System.out.println("[TEST 2]");
-		
-		UserVO user=userService.findById(2);
-		
+
+		UserVO user = userService.findById(2);
+
 		userService.delete(user);
-		
-		assertEquals(2, userService.listAll().size());
-		
+
+		assertEquals(4, userService.listAll().size());
+
 		System.out.println();
 		System.out.println("________");
 	}
-	
+
 	@Test
 	@Order(3)
 	@DisplayName("Borrar usuarios pasandole su id")
 	void testDeletetUserById() {
 		System.out.println();
 		System.out.println("[TEST 3]");
-		
+
 		userService.deleteById(3);
-		
-		assertEquals(1, userService.listAll().size());
-		
+
+		assertEquals(3, userService.listAll().size());
+
 		System.out.println();
 		System.out.println("________");
 	}
 
+	@Test
+	@Order(4)
+	@DisplayName("Buscar todos los usuarios")
+	void testListAll() {
+		System.out.println();
+		System.out.println("[TEST 4]");
+
+		List<UserVO> usuarios = userService.listAll();
+		
+		System.out.println("Los usuarios de nuestra BBDD son:");
+		
+		for (UserVO u : usuarios) {
+			System.out.println(u.getLogin());
+		}
+		
+		assertEquals(3, userService.listAll().size());
+
+		System.out.println();
+		System.out.println("________");
+	}
 
 
 }
