@@ -73,7 +73,7 @@ class GroupTest {
 	@Test
 	@Order(3)
 	@DisplayName("Borrar grupos pasandole su id")
-	void testDeletetUserById() {
+	void testDeletetGroupById() {
 		System.out.println();
 		System.out.println("[TEST 3]");
 		
@@ -88,7 +88,7 @@ class GroupTest {
 	@Test
 	@Order(4)
 	@DisplayName("Buscar todos los grupos")
-	void testListAllUsers() {
+	void testListAllGroups() {
 		System.out.println();
 		System.out.println("[TEST 5]");
 		
@@ -105,6 +105,22 @@ class GroupTest {
 		
 		System.out.println();
 		System.out.println("________");		
+	}
+	
+	@Test
+	@Order(5)
+	@DisplayName("Buscar grupo por id")
+	void testFindGroupById() {
+		System.out.println();
+		System.out.println("[TEST 5]");
+		
+		System.out.println("El grupo con id[1] es: "+groupService.findById(1).getName());
+		
+		assertEquals("grupo1", groupService.findById(1).getName());
+		
+		System.out.println();
+		System.out.println("________");
+		
 	}
 
 }
