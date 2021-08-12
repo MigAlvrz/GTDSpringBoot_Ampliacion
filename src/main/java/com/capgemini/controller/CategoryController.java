@@ -43,7 +43,7 @@ public class CategoryController {
 		return new ResponseEntity<>(catService.listAll(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/findId")
+	@GetMapping("/find/{categoryId}")
 	public ResponseEntity<?> findById(@RequestBody int id){
 		CategoryVO cat = catService.findById(id);
 		return checkNull(cat);
