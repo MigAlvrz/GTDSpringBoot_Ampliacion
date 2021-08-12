@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class CategoryVO {
 	
@@ -27,6 +29,7 @@ public class CategoryVO {
 	@OneToMany( mappedBy = "categoryTask", cascade = CascadeType.ALL)
 	private List<TaskVO> tasks;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="iduser")
 	private UserVO userCategory;

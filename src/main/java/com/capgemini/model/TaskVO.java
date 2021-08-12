@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class TaskVO {
 
@@ -39,14 +41,17 @@ public class TaskVO {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate finished;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "iduser")
 	private UserVO userTask;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "idcategory")
 	private CategoryVO categoryTask;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "idgroup")
 	private GroupVO groupTask;
