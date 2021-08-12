@@ -32,7 +32,7 @@ public class GroupUserController {
 		return checkNull(grUs);
 	}
 	
-	@DeleteMapping("/delete/{idcategory}")
+	@DeleteMapping("/delete/{idgroupuser}")
 	public ResponseEntity<?> deleteById(@RequestBody int id){
 		GroupUserVO grUs = grUsService.deleteById(id);
 		return checkNull(grUs);
@@ -43,7 +43,7 @@ public class GroupUserController {
 		return new ResponseEntity<>(grUsService.listAll(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/find/{idcategory}")
+	@GetMapping("/find/{idgroupuser}")
 	public ResponseEntity<?> findById(@RequestBody int id){
 		GroupUserVO grUs = grUsService.findById(id);
 		return checkNull(grUs);
