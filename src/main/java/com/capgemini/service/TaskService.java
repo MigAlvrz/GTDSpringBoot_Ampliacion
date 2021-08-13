@@ -13,6 +13,6 @@ public interface TaskService {
 	public TaskVO deleteById(int id) throws IllegalArgumentException;
 	public List<TaskVO> listAll();
 	public TaskVO findById(int id) throws IllegalArgumentException;
-	public List<TaskVO> listInboxTask(UserVO user);
+	public List<TaskVO> listInboxTask(UserVO user) throws IllegalArgumentException;
 
 }

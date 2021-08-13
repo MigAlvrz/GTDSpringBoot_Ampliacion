@@ -60,8 +60,8 @@ public class TaskServiceImplementation implements TaskService {
 
 	@Override
 	public List<TaskVO> listInboxTask(UserVO user) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		throw new IllegalArgumentException();
 	}
 
 
