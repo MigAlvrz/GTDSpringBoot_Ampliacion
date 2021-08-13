@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.model.TaskVO;
+import com.capgemini.model.UserVO;
 import com.capgemini.repository.TaskRepository;
 import com.capgemini.service.TaskService;
 
@@ -55,6 +56,12 @@ public class TaskServiceImplementation implements TaskService {
 			return taskRepo.findById(id).get();
 		}
 		throw new IllegalArgumentException();
+	}
+
+	@Override
+	public List<TaskVO> listInboxTask(UserVO user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
