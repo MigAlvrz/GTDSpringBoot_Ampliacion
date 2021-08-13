@@ -14,7 +14,8 @@ import com.capgemini.service.TaskService;
 public class TaskServiceImplementation implements TaskService {
 	
 	@Autowired
-	private TaskRepository taskRepo;
+	private TaskRepository taskRepo;	
+
 
 	@Override
 	public TaskVO add(TaskVO task) {
@@ -60,7 +61,7 @@ public class TaskServiceImplementation implements TaskService {
 
 	@Override
 	public List<TaskVO> listInboxTask(UserVO user) {
-		
+
 		throw new IllegalArgumentException();
 	}
 
