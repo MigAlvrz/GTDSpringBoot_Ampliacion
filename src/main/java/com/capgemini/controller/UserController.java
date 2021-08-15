@@ -84,7 +84,7 @@ public class UserController {
 		
 
 		System.out.println(JWT);
-		return new ResponseEntity<>(JWT ,HttpStatus.OK);
+		return new ResponseEntity<>(JWT ,HttpStatus.OK); 
 		
 	}
 
