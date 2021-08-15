@@ -14,5 +14,6 @@ import com.capgemini.model.UserVO;
 public interface TaskRepository extends JpaRepository<TaskVO, Integer> {
 	
 	List<TaskVO> findByUserTaskAndCategoryTaskAndFinishedOrderByPlannedAsc(UserVO user,CategoryVO catInbox,LocalDate finished);
+	List<TaskVO> findByUserTaskAndFinishedAndPlannedLessThanEqualOrderByCategoryTaskAscPlannedAsc(UserVO user,LocalDate finished, LocalDate planned);
 
 }
