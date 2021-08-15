@@ -81,7 +81,7 @@ public class TaskServiceImplementation implements TaskService {
 			LocalDate finished = null;
 			//utilizamos el repo de JPA para buscar la lista de Task con categoria
 			//INBOX por cada user
-			List<TaskVO> listInbox = taskRepo.findByUserTaskAndCategoryTaskAndFinished(user,catInbox,finished);
+			List<TaskVO> listInbox = taskRepo.findByUserTaskAndCategoryTaskAndFinishedOrderByPlannedAsc(user,catInbox,finished);
 			return listInbox;
 		}
 

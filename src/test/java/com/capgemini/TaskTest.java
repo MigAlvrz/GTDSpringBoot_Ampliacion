@@ -150,9 +150,9 @@ class TaskTest {
 		catService.add(cat2user1);
 		//creamos unas tareas para user1, el grupo de la tarea lo metemos como null para no sobrecargar el test
 		//creamos 7 tareas pero solo 3 en inbox sin finalizar
-		TaskVO task1user1 = new TaskVO("Tarea 1","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
-		TaskVO task2user1 = new TaskVO("Tarea 2","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
-		TaskVO task3user1 = new TaskVO("Tarea 3","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
+		TaskVO task1user1 = new TaskVO("Tarea 1","lorem ipsum dolor sit amet",LocalDate.now(),LocalDate.of(2021, 8, 14),null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
+		TaskVO task2user1 = new TaskVO("Tarea 2","lorem ipsum dolor sit amet",LocalDate.now(),LocalDate.of(2021, 8, 15),null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
+		TaskVO task3user1 = new TaskVO("Tarea 3","lorem ipsum dolor sit amet",LocalDate.now(),LocalDate.of(2021, 8, 13),null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
 		TaskVO task4user1 = new TaskVO("Tarea 4","lorem ipsum dolor sit amet",LocalDate.now(),null,LocalDate.now(),userService.findById(1),catService.findById(1),null);//INBOX acabada
 		TaskVO task5user1 = new TaskVO("Tarea 5","lorem ipsum dolor sit amet",LocalDate.now(),null,LocalDate.now(),userService.findById(1),catService.findById(1),null);//INBOX acabada
 		TaskVO task6user1 = new TaskVO("Tarea 6","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(2),null);//Categoria 2 sin acabar
