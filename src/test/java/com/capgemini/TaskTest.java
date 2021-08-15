@@ -23,7 +23,6 @@ import com.capgemini.service.CategoryService;
 import com.capgemini.service.TaskService;
 import com.capgemini.service.UserService;
 
-
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("Test para TaskVO")
@@ -35,21 +34,24 @@ class TaskTest {
 	private UserService userService;
 	@Autowired
 	private CategoryService catService;
-	
+
 	@Test
 	@Order(1)
 	@DisplayName("Insertar tarea")
 	void testInsertTask() {
 		System.out.println();
 		System.out.println("[TEST 1]");
-		
 
-
-		taskService.add(new TaskVO("tarea1", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
-		taskService.add(new TaskVO("tarea2", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
-		taskService.add(new TaskVO("tarea3", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
-		taskService.add(new TaskVO("tarea4", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
-		taskService.add(new TaskVO("tarea5", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null, null, null));
+		taskService.add(new TaskVO("tarea1", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null,
+				null, null));
+		taskService.add(new TaskVO("tarea2", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null,
+				null, null));
+		taskService.add(new TaskVO("tarea3", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null,
+				null, null));
+		taskService.add(new TaskVO("tarea4", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null,
+				null, null));
+		taskService.add(new TaskVO("tarea5", "comentario", LocalDate.now(), LocalDate.now().plusDays(1), null, null,
+				null, null));
 
 		assertEquals(5, taskService.listAll().size());
 		System.out.println("[DONE]\n");
@@ -61,28 +63,27 @@ class TaskTest {
 	void testDeleteTask() {
 		System.out.println();
 		System.out.println("[TEST 2]");
-		
+
 		TaskVO task = taskService.findById(1);
 		taskService.delete(task);
 
-		
 		assertEquals(4, taskService.listAll().size());
 		System.out.println("[DONE]\n");
 	}
-	
+
 	@Test
 	@Order(3)
 	@DisplayName("Borrar Tasks con id")
 	void testeDeleteTaskById() {
 		System.out.println();
 		System.out.println("[TEST 3]");
-		
+
 		taskService.deleteById(2);
 
 		assertEquals(3, taskService.listAll().size());
 		System.out.println("[DONE]\n");
 	}
-	
+
 	@Test
 	@Order(4)
 	@DisplayName("Buscar todas las task")
@@ -94,69 +95,78 @@ class TaskTest {
 		for (TaskVO t : tasks) {
 			System.out.println(t.getTitle());
 		}
-		
+
 		assertEquals(3, taskService.listAll().size());
 		System.out.println("[DONE]\n");
 	}
-	
+
 	@Test
 	@Order(5)
 	@DisplayName("Buscar Task por id")
 	void testFindTaskById() {
 		System.out.println();
 		System.out.println("[TEST 5]");
-		
-		System.out.println("Title with ID=3 --> "+taskService.findById(3).getTitle());
-		
+
+		System.out.println("Title with ID=3 --> " + taskService.findById(3).getTitle());
+
 		assertEquals("tarea3", taskService.findById(3).getTitle());
 		System.out.println("[DONE]\n");
 	}
-	
+
 	@Test
 	@Order(6)
 	@DisplayName("Modificar Task")
 	void testModifyTask() {
 		System.out.println();
 		System.out.println("[TEST 6]");
-		
+
 		TaskVO task = taskService.findById(4);
 		LocalDate newPlanned = task.getPlanned().plusDays(1);
-		System.out.println("Task with id=4 is "+ task.getTitle()+"\n and was scheduled for "+task.getPlanned());
+		System.out.println("Task with id=4 is " + task.getTitle() + "\n and was scheduled for " + task.getPlanned());
 		task.setTitle("newTitle4");
 		task.setPlanned(newPlanned);
 		taskService.modify(task);
-		System.out.println("New title: "+task.getTitle()+"\nNew planned finished time: "+task.getPlanned());
-		
+		System.out.println("New title: " + task.getTitle() + "\nNew planned finished time: " + task.getPlanned());
+
 		assertEquals("newTitle4", taskService.findById(4).getTitle());
 		assertEquals(newPlanned, taskService.findById(4).getPlanned());
-		
+
 		System.out.println("[DONE]\n");
 	}
-	
+
 	@Test
 	@Order(7)
 	@DisplayName("Listar task con categoria inbox sin terminar")
 	void testListInboxTask() {
 		System.out.println();
 		System.out.println("[TEST 7]");
-		
-		//para poder testear, debemos crear un user,unas categorias para ese user
-		UserVO user1 = new UserVO("user1","user1@capgemini.com","user1",UserStatus.ENABLED,false,new ArrayList<TaskVO>(),new ArrayList<CategoryVO>(),new ArrayList<GroupUserVO>());
-		userService.add(user1);		
-		//categorias para user1
-		CategoryVO cat1user1 = new CategoryVO("INBOX",new ArrayList<TaskVO>(),userService.findById(1));
-		CategoryVO cat2user1 = new CategoryVO("Categoria 2",new ArrayList<TaskVO>(),userService.findById(1));
+
+		// para poder testear, debemos crear un user,unas categorias para ese user
+		UserVO user1 = new UserVO("user1", "user1@capgemini.com", "user1", UserStatus.ENABLED, false,
+				new ArrayList<TaskVO>(), new ArrayList<CategoryVO>(), new ArrayList<GroupUserVO>());
+		userService.add(user1);
+		// categorias para user1
+		CategoryVO cat1user1 = new CategoryVO("INBOX", new ArrayList<TaskVO>(), userService.findById(1));
+		CategoryVO cat2user1 = new CategoryVO("Categoria 2", new ArrayList<TaskVO>(), userService.findById(1));
 		catService.add(cat1user1);
 		catService.add(cat2user1);
-		//creamos unas tareas para user1, el grupo de la tarea lo metemos como null para no sobrecargar el test
-		//creamos 7 tareas pero solo 3 en inbox sin finalizar
-		TaskVO task1user1 = new TaskVO("Tarea 1","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
-		TaskVO task2user1 = new TaskVO("Tarea 2","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
-		TaskVO task3user1 = new TaskVO("Tarea 3","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(1),null);//INBOX sin acabar
-		TaskVO task4user1 = new TaskVO("Tarea 4","lorem ipsum dolor sit amet",LocalDate.now(),null,LocalDate.now(),userService.findById(1),catService.findById(1),null);//INBOX acabada
-		TaskVO task5user1 = new TaskVO("Tarea 5","lorem ipsum dolor sit amet",LocalDate.now(),null,LocalDate.now(),userService.findById(1),catService.findById(1),null);//INBOX acabada
-		TaskVO task6user1 = new TaskVO("Tarea 6","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(2),null);//Categoria 2 sin acabar
-		TaskVO task7user1 = new TaskVO("Tarea 7","lorem ipsum dolor sit amet",LocalDate.now(),null,null,userService.findById(1),catService.findById(2),null);//Categoria 2 sin acabar
+		// creamos unas tareas para user1, el grupo de la tarea lo metemos como null
+		// para no sobrecargar el test
+		// creamos 7 tareas pero solo 3 en inbox sin finalizar
+		TaskVO task1user1 = new TaskVO("Tarea 1", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 14), null, userService.findById(1), catService.findById(1), null);// INBOX sin acabar
+		TaskVO task2user1 = new TaskVO("Tarea 2", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 15), null, userService.findById(1), catService.findById(1), null);// INBOX sin acabar
+		TaskVO task3user1 = new TaskVO("Tarea 3", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 13), null, userService.findById(1), catService.findById(1), null);// INBOX sin acabar
+		TaskVO task4user1 = new TaskVO("Tarea 4", "lorem ipsum dolor sit amet", LocalDate.now(), null, LocalDate.now(),
+				userService.findById(1), catService.findById(1), null);// INBOX acabada
+		TaskVO task5user1 = new TaskVO("Tarea 5", "lorem ipsum dolor sit amet", LocalDate.now(), null, LocalDate.now(),
+				userService.findById(1), catService.findById(1), null);// INBOX acabada
+		TaskVO task6user1 = new TaskVO("Tarea 6", "lorem ipsum dolor sit amet", LocalDate.now(), null, null,
+				userService.findById(1), catService.findById(2), null);// Categoria 2 sin acabar
+		TaskVO task7user1 = new TaskVO("Tarea 7", "lorem ipsum dolor sit amet", LocalDate.now(), null, null,
+				userService.findById(1), catService.findById(2), null);// Categoria 2 sin acabar
 		taskService.add(task1user1);
 		taskService.add(task2user1);
 		taskService.add(task3user1);
@@ -164,21 +174,105 @@ class TaskTest {
 		taskService.add(task5user1);
 		taskService.add(task6user1);
 		taskService.add(task7user1);
-		
+
 		List<TaskVO> listTaskInboxUser1 = taskService.listInboxTask(user1);
 		for (TaskVO t : listTaskInboxUser1) {
-			System.out.println("Soy la "+t.getTitle()+" de la categoria "+t.getCategoryTask().getName()+" del "+t.getUserTask().getLogin());
+			System.out.println("Soy la " + t.getTitle() + " de la categoria " + t.getCategoryTask().getName() + " del "
+					+ t.getUserTask().getLogin());
 		}
-		
-		//deberíamos encontrar 3 tareas en INBOX sin finalizar para el user1
+
+		// deberíamos encontrar 3 tareas en INBOX sin finalizar para el user1
 		assertEquals(3, taskService.listInboxTask(user1).size());
 
-		
 		System.out.println("[DONE]\n");
 	}
-	
-	
-	
+
+	@Test
+	@Order(8)
+	@DisplayName("Listar task planedas para hoy (y atrasadas) sin terminar")
+	void testListTodayTask() {
+		System.out.println();
+		System.out.println("[TEST 8]");
+		// vamos a trabajar con el user1
+		// creamos alguna que otra categoria para que nos lo agrupe por categoria
+		CategoryVO cat3user1 = new CategoryVO("Categoria 3", new ArrayList<TaskVO>(), userService.findById(1));
+		CategoryVO cat4user1 = new CategoryVO("Categoria 4", new ArrayList<TaskVO>(), userService.findById(1));
+		CategoryVO cat5user1 = new CategoryVO("Categoria 5", new ArrayList<TaskVO>(), userService.findById(1));
+		catService.add(cat3user1);
+		catService.add(cat4user1);
+		catService.add(cat5user1);
+		// creamos unas tareas para user1, el grupo de la tarea lo metemos como null
+		// para no sobrecargar el test
+		// ---Tareas para categoria 2 (4 creadas, solo listara 3 por que una es para fecha posterior a localdate.now)
+		TaskVO task8user1 = new TaskVO("Tarea 8", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 15), null, userService.findById(1), catService.findById(2), null);
+		TaskVO task9user1 = new TaskVO("Tarea 9", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 14), null, userService.findById(1), catService.findById(2), null);
+		TaskVO task10user1 = new TaskVO("Tarea 10", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 12), null, userService.findById(1), catService.findById(2), null);
+		TaskVO task11user1 = new TaskVO("Tarea 11", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(2), null);
+		
+		// ---Tareas para categoria 3 (4 creadas, solo listara 3 por que una es para fecha posterior a localdate.now)
+		TaskVO task12user1 = new TaskVO("Tarea 12", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 15), null, userService.findById(1), catService.findById(3), null);
+		TaskVO task13user1 = new TaskVO("Tarea 13", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 14), null, userService.findById(1), catService.findById(3), null);
+		TaskVO task14user1 = new TaskVO("Tarea 14", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 12), null, userService.findById(1), catService.findById(3), null);
+		TaskVO task15user1 = new TaskVO("Tarea 15", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(3), null);
+		
+		// ---Tareas para categoria 4 (4 creadas, solo listara 3 por que una es para fecha posterior a localdate.now)
+		TaskVO task16user1 = new TaskVO("Tarea 16", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 15), null, userService.findById(1), catService.findById(4), null);
+		TaskVO task17user1 = new TaskVO("Tarea 17", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 14), null, userService.findById(1), catService.findById(4), null);
+		TaskVO task18user1 = new TaskVO("Tarea 18", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 12), null, userService.findById(1), catService.findById(4), null);
+		TaskVO task19user1 = new TaskVO("Tarea 19", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(4), null);
+		
+		// ---Tareas para categoria 5 (4 creadas, solo listara 3 por que una es para fecha posterior a localdate.now)
+		TaskVO task20user1 = new TaskVO("Tarea 20", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 15), null, userService.findById(1), catService.findById(5), null);
+		TaskVO task21user1 = new TaskVO("Tarea 21", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 14), null, userService.findById(1), catService.findById(5), null);
+		TaskVO task22user1 = new TaskVO("Tarea 22", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 12), null, userService.findById(1), catService.findById(5), null);
+		TaskVO task23user1 = new TaskVO("Tarea 23", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(5), null);
+		
+		taskService.add(task8user1); 
+		taskService.add(task9user1);
+		taskService.add(task10user1);
+		taskService.add(task11user1);
+		taskService.add(task12user1);
+		taskService.add(task13user1);
+		taskService.add(task14user1);
+		taskService.add(task15user1);
+		taskService.add(task16user1);
+		taskService.add(task17user1);
+		taskService.add(task18user1);
+		taskService.add(task19user1);
+		taskService.add(task20user1);
+		taskService.add(task21user1);
+		taskService.add(task22user1);
+		taskService.add(task23user1);
+		
+		UserVO user1 = userService.findById(1);
+		
+		List<TaskVO> listTaskTodayUser1 = taskService.listTodayTask(user1);
+		for (TaskVO t : listTaskTodayUser1) {
+			System.out.println(t.getCategoryTask().getName()+" - "+t.getTitle()+" - Prevista para: "+ t.getPlanned());
+		}
+		
+		System.out.println("El usuario 1 tiene "+userService.findById(1).getTasks().size()+" tareas pero solo tiene "+listTaskTodayUser1.size()+" previstas para hoy o retrasadas.");
+		
+		//tenemos 15, por que arrastramos 3 tareas creadas del metodo anterior fechadas para hoy o anterior
+		assertEquals(15, listTaskTodayUser1.size());
+
+		System.out.println("[DONE]\n");
+	}
+
 }
-
-

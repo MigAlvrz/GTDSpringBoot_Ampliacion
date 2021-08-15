@@ -81,8 +81,27 @@ public class TaskServiceImplementation implements TaskService {
 			LocalDate finished = null;
 			//utilizamos el repo de JPA para buscar la lista de Task con categoria
 			//INBOX por cada user
-			List<TaskVO> listInbox = taskRepo.findByUserTaskAndCategoryTaskAndFinished(user,catInbox,finished);
+			List<TaskVO> listInbox = taskRepo.findByUserTaskAndCategoryTaskAndFinishedOrderByPlannedAsc(user,catInbox,finished);
 			return listInbox;
+		}
+
+		throw new IllegalArgumentException();
+	}
+
+	@Override
+	public List<TaskVO> listTodayTask(UserVO user) throws IllegalArgumentException {
+		if(userRepo.findById(user.getIduser()).isPresent()) {
+			//primero buscamos que exista el usuario
+			//como hemos de listar las tareas creadas pero no terminadas, la fecha
+			//finished es null
+			LocalDate finished = null;
+			//como hemos de listar las tareas planeadas para hoy, planned es fecha actual
+			LocalDate planned = LocalDate.now();
+			//utilizamos el repo de JPA para buscar la lista de Task planeadas para hoy y
+			//las atrasadas, ordenadas por categoria de usuario y por fecha planeada
+
+			List<TaskVO> listToday = taskRepo.findByUserTaskAndFinishedAndPlannedLessThanEqualOrderByCategoryTaskAscPlannedAsc(user, finished, planned);
+			return listToday;
 		}
 
 		throw new IllegalArgumentException();

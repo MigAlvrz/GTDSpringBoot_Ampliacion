@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class UserVO {
 	@Type(type="yes_no")
 	private boolean admin;
 	
-	@OneToMany(mappedBy = "userTask", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "userTask", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TaskVO> tasks;
 	
 	@OneToMany( mappedBy = "userCategory", cascade = CascadeType.ALL)
