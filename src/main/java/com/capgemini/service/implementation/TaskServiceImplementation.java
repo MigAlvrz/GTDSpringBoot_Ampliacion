@@ -107,6 +107,24 @@ public class TaskServiceImplementation implements TaskService {
 		throw new IllegalArgumentException();
 	}
 
+	@Override
+	public List<TaskVO> listWeekTask(UserVO user) throws IllegalArgumentException {
+		if(userRepo.findById(user.getIduser()).isPresent()) {
+			//primero buscamos que exista el usuario
+			//como hemos de listar las tareas creadas pero no terminadas, la fecha
+			//finished es null
+			LocalDate finished = null;
+			//como hemos de listar las tareas planeadas para la semana, planned es fecha actual más siete días
+			LocalDate planned = LocalDate.now().plusDays(7);
+			//utilizamos el repo de JPA para buscar la lista de Task planeadas para hoy y
+			//las atrasadas, ordenadas por categoria de usuario y por fecha planeada
+
+			List<TaskVO> listWeek = taskRepo.findByUserTaskAndFinishedAndPlannedLessThanEqualOrderByPlannedAscCategoryTaskAsc(user, finished, planned);
+			return listWeek;
+		}
+
+		throw new IllegalArgumentException();
+	}	
 
 
 }

@@ -15,5 +15,6 @@ public interface TaskService {
 	public TaskVO findById(int id) throws IllegalArgumentException;
 	public List<TaskVO> listInboxTask(UserVO user) throws IllegalArgumentException;
 	public List<TaskVO> listTodayTask(UserVO user) throws IllegalArgumentException;
+	public List<TaskVO> listWeekTask(UserVO user) throws IllegalArgumentException;
 
 }
