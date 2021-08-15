@@ -32,6 +32,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		// Esto sirve para que ignore si las peticiones tienen JWT
+		httpSecurity.authorizeRequests()
+        .antMatchers("/").permitAll()
+        .antMatchers("/h2/**").permitAll();
+		
+		httpSecurity.authorizeRequests()
+        .antMatchers("/").permitAll()
+        .antMatchers("/user/login").permitAll();
+		
+		//Esto no tengo muy claro que hace, pero sin ello el h2 no funciona 
+		httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
+		
 		httpSecurity
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.cors().and()

@@ -21,6 +21,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(UserVO user) {
 		UserVO newUser = userService.add(user);
@@ -49,7 +51,19 @@ public class UserController {
 		UserVO user = userService.findById(userId);
 		return checkNull(user);
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody String login, @RequestBody String password){
+		UserVO user = userService.listAll().stream().filter(usuario -> (usuario.getLogin() == login && usuario.getPassword() == password)).findFirst().orElse(null);
+		if(user== null) {
+			System.out.println("no se encontró ese usuario");
+		}
+		
+		return checkNull(user);
+	}
 
+	
+	
 	private ResponseEntity<?> checkNull(UserVO user) {
 		if(user!=null) 
 			return new ResponseEntity<>(user ,HttpStatus.OK);
