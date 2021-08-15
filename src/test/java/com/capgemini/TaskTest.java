@@ -274,5 +274,56 @@ class TaskTest {
 
 		System.out.println("[DONE]\n");
 	}
+	
+	@Test
+	@Order(9)
+	@DisplayName("Listar task planedas para esta semana (y atrasadas) sin terminar")
+	void testListWeekTask() {
+		System.out.println();
+		System.out.println("[TEST 9]");
+		
+		//en el metodo anterior ya habiamos añadido 4 tareas planeadas para esta proxima semana
+		//añadimos alguna más para comprobar que nos agrupa como debe
+		
+		TaskVO task24user1 = new TaskVO("Tarea 24", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(5), null);
+		TaskVO task25user1 = new TaskVO("Tarea 25", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(4), null);
+		TaskVO task26user1 = new TaskVO("Tarea 26", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(3), null);
+		TaskVO task27user1 = new TaskVO("Tarea 27", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 8, 21), null, userService.findById(1), catService.findById(2), null);
+		
+		//añadimos 3 con fecha dentro de un mes para hacer doble comprobacion
+		TaskVO task28user1 = new TaskVO("Tarea 28", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 9, 21), null, userService.findById(1), catService.findById(2), null);
+		TaskVO task29user1 = new TaskVO("Tarea 29", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 9, 23), null, userService.findById(1), catService.findById(2), null);
+		TaskVO task30user1 = new TaskVO("Tarea 30", "lorem ipsum dolor sit amet", LocalDate.now(),
+				LocalDate.of(2021, 9, 25), null, userService.findById(1), catService.findById(2), null);
+		
+		taskService.add(task24user1);
+		taskService.add(task25user1);
+		taskService.add(task26user1);
+		taskService.add(task27user1);
+		taskService.add(task28user1);
+		taskService.add(task29user1);
+		taskService.add(task30user1);
+		
+		UserVO user1 = userService.findById(1);
+		List<TaskVO> listTaskWeekUser1 = taskService.listWeekTask(user1);
+		for (TaskVO t : listTaskWeekUser1) {
+			System.out.println("Día límite planned: "+t.getPlanned()+" - "+t.getTitle()+" - Categoría: "+t.getCategoryTask().getName());
+		}
+		
+		System.out.println("El usuario 1 tiene "+userService.findById(1).getTasks().size()+" tareas pero solo tiene "+listTaskWeekUser1.size()+" previstas para estama semana o retrasadas.");
+		
+		assertEquals(23, listTaskWeekUser1.size());
+		
+		System.out.println("[DONE]\n");
+		
+	}
+
+		
 
 }
