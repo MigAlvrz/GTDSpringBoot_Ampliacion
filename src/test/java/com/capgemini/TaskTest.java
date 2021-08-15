@@ -323,6 +323,51 @@ class TaskTest {
 		System.out.println("[DONE]\n");
 		
 	}
+	
+	@Test
+	@Order(10)
+	@DisplayName("Listar task planedas por categoria (y atrasadas) sin terminar")
+	void testListCategoryTask() {
+		System.out.println();
+		System.out.println("[TEST 10]");
+		
+		UserVO user1 = userService.findById(1);
+		CategoryVO cat2 = catService.findById(2);
+		CategoryVO cat3 = catService.findById(3);
+		CategoryVO cat4 = catService.findById(4);
+		CategoryVO cat5 = catService.findById(5);
+		
+		List<TaskVO> listTaskCat2 = taskService.listCategoryTask(user1, cat2);
+		List<TaskVO> listTaskCat3 = taskService.listCategoryTask(user1, cat3);
+		List<TaskVO> listTaskCat4 = taskService.listCategoryTask(user1, cat4);
+		List<TaskVO> listTaskCat5 = taskService.listCategoryTask(user1, cat5);
+		
+		System.out.println("----");
+		System.out.println("Tareas de la categoría 2:");
+		for (TaskVO t2 : listTaskCat2) {
+			System.out.println("- "+t2.getTitle()+" - Planned: "+t2.getPlanned());
+		}
+		System.out.println("----");
+		System.out.println("Tareas de la categoría 3:");
+		for (TaskVO t3 : listTaskCat3) {
+			System.out.println("- "+t3.getTitle()+" - Planned: "+t3.getPlanned());
+		}
+		System.out.println("----");
+		System.out.println("Tareas de la categoría 4:");
+		for (TaskVO t4 : listTaskCat4) {
+			System.out.println("- "+t4.getTitle()+" - Planned: "+t4.getPlanned());
+		}
+		System.out.println("----");
+		System.out.println("Tareas de la categoría 5:");
+		for (TaskVO t5 : listTaskCat5) {
+			System.out.println("- "+t5.getTitle()+" - Planned: "+t5.getPlanned());
+		}
+		
+		//sabemos que la categoria 5 tiene 5 tareas
+		assertEquals(5,listTaskCat5.size());
+		
+		System.out.println("[DONE]\n");		
+	}
 
 		
 
