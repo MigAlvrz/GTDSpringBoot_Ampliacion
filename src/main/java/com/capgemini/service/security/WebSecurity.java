@@ -37,10 +37,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
         .antMatchers("/").permitAll()
         .antMatchers("/h2/**").permitAll();
 		
-		httpSecurity.authorizeRequests()
-        .antMatchers("/").permitAll()
-        .antMatchers("/user/login").permitAll();
-		
 		//Esto no tengo muy claro que hace, pero sin ello el h2 no funciona 
 		httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();

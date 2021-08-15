@@ -1,5 +1,9 @@
 package com.capgemini.controller;
 
+import java.net.http.HttpHeaders;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.UserVO;
 import com.capgemini.service.UserService;
+import com.capgemini.service.security.Constants;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping("/user")
@@ -53,13 +61,31 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody String login, @RequestBody String password){
-		UserVO user = userService.listAll().stream().filter(usuario -> (usuario.getLogin() == login && usuario.getPassword() == password)).findFirst().orElse(null);
+	public ResponseEntity<?> login(@RequestBody String login){
+		UserVO user = null;
+		List<UserVO> users = userService.listAll();
+		System.out.println(users.size());
+		System.out.println("lo que llegó :"+ login);
+		for (UserVO userVO : users) {
+			System.out.println(userVO.getLogin()+" - "+login);
+			if(userVO.getLogin().equals(login))
+				user = userVO;
+		}
 		if(user== null) {
 			System.out.println("no se encontró ese usuario");
+			return null;
 		}
 		
-		return checkNull(user);
+		String JWT = Jwts.builder()
+				.claim("activeUser", user)
+				.setExpiration(new Date(System.currentTimeMillis()+ Constants.TOKEN_EXPIRATION_TIME))
+				.signWith(SignatureAlgorithm.HS512, Constants.SUPER_SECRET_KEY)
+				.compact();
+		
+
+		System.out.println(JWT);
+		return new ResponseEntity<>(JWT ,HttpStatus.OK);
+		
 	}
 
 	
