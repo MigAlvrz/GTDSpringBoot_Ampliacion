@@ -13,7 +13,8 @@ import com.capgemini.model.UserVO;
 @Repository
 public interface TaskRepository extends JpaRepository<TaskVO, Integer> {
 	
-	List<TaskVO> findByUserTaskAndCategoryTaskAndFinishedOrderByPlannedAsc(UserVO user,CategoryVO catInbox,LocalDate finished);
-	List<TaskVO> findByUserTaskAndFinishedAndPlannedLessThanEqualOrderByCategoryTaskAscPlannedAsc(UserVO user,LocalDate finished, LocalDate planned);
+	List<TaskVO> findByUserTaskAndCategoryTaskAndFinishedOrderByPlannedAsc(UserVO user,CategoryVO catInbox,LocalDate finished);//list INBOX
+	List<TaskVO> findByUserTaskAndFinishedAndPlannedLessThanEqualOrderByCategoryTaskAscPlannedAsc(UserVO user,LocalDate finished, LocalDate planned);//list TODAY
+	List<TaskVO> findByUserTaskAndFinishedAndPlannedLessThanEqualOrderByPlannedAscCategoryTaskAsc(UserVO user,LocalDate finished, LocalDate planned);// list WEEK
 
 }
