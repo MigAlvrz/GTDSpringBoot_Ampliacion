@@ -35,11 +35,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
+	/**
+	 * Creates an UserVO, then adds it to the DB
+	 * @param body
+	 * @return
+	 */
 	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@RequestBody String body) {
-
 		UserVO newUser = null;
 		try {
 			newUser = new ObjectMapper().readValue(body, UserVO.class);
@@ -52,11 +55,31 @@ public class UserController {
 		return checkNull(newUser);
 	}
 	
+	/**
+	 * Deletes an UserVO from the DB
+	 * @param body
+	 * @return
+	 */
+	
 	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody UserVO user) {
-		UserVO exUser = userService.delete(user);
+	public ResponseEntity<?> delete(@RequestBody String body) {
+		UserVO exUser = null;
+		try {
+			exUser = new ObjectMapper().readValue(body, UserVO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		userService.delete(exUser);
 		return checkNull(exUser);
 	}
+	
+	/**
+	 * Finds an user by Id, then deletes it
+	 * @param userId
+	 * @return
+	 */
 	
 	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<?> deleteById(@PathVariable int userId) {
@@ -64,16 +87,34 @@ public class UserController {
 		return checkNull(exUser);
 	}
 	
+	
+	/**
+	 * Returns all the existing users rfrom the DB
+	 * @return
+	 */
+	
 	@GetMapping("/listAll")
 	public ResponseEntity<?> findAll(){
 		return new ResponseEntity<>(userService.listAll(), HttpStatus.OK);
 	}
+	
+	/**
+	 * Finds an user by it's ID, then returns it
+	 * @param userId
+	 * @return
+	 */
 	
 	@GetMapping("/find/{userId}")
 	public ResponseEntity<?> findById(@PathVariable int userId) {
 		UserVO user = userService.findById(userId);
 		return checkNull(user);
 	}
+	
+	/**
+	 * Attemps to log with an username or email and a password, then returns a JWT
+	 * @param body
+	 * @return JWT token
+	 */
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody String body){
@@ -103,13 +144,27 @@ public class UserController {
 		
 	}
 
-	
+	/**
+	 * Checks if a UserVO is correct, then returns an Ok httpStatus
+	 * otherwise, returns a Bad_Request
+	 * @param cat
+	 * @return
+	 */
 	
 	private ResponseEntity<?> checkNull(UserVO user) {
 		if(user!=null) 
 			return new ResponseEntity<>(user ,HttpStatus.OK);
 		return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
 	}
+	
+	/**
+	 * Checks if a username or email exists within the DB and if the password given checks out
+	 * then, returns the UserVO
+	 * @param body
+	 * @return
+	 * @throws JsonMappingException
+	 * @throws JsonProcessingException
+	 */
 	
 	private UserVO checkIfUserExists(String body) throws JsonMappingException, JsonProcessingException {
 		JsonNode jsonBody = new ObjectMapper().readTree(body);
@@ -118,8 +173,10 @@ public class UserController {
 
 		if (jsonBody.has("login")) {
 			user = userService.listAll().stream().filter(userVO -> jsonBody.path("login").asText().equals(userVO.getLogin())).findFirst().get();
-		} else if (jsonBody.has("email")) {
-			user = userService.listAll().stream().filter(userVO -> jsonBody.path("email").asText().equals(userVO.getEmail())).findFirst().get();
+			if(user==null)
+				user = userService.listAll().stream().filter(userVO -> jsonBody.path("login").asText().equals(userVO.getEmail())).findFirst().get();
+			else 
+				return null;
 		} else {
 			return null;
 		}
