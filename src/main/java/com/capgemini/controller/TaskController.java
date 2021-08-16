@@ -62,6 +62,15 @@ public class TaskController {
 		}
 		return new ResponseEntity<>(userId, HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/listToday/{userId}")
+	public ResponseEntity<?> findToday(@PathVariable int userId) {
+		if (userService.findById(userId) != null) {
+			UserVO user = userService.findById(userId);
+			return new ResponseEntity<>(taskService.listTodayTask(user), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(userId, HttpStatus.BAD_REQUEST);
+	}
 
 	private ResponseEntity<?> checkNull(TaskVO task) {
 		if (task != null)
