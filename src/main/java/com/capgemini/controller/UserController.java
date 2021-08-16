@@ -48,8 +48,7 @@ public class UserController {
 		}
 		System.out.println(newUser.getLogin()+" "+newUser.getEmail());
 		userService.add(newUser);
-		return checkNull(newUser);
-	}
+
 	
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody UserVO user) {
