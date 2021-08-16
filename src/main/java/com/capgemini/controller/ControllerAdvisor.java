@@ -13,6 +13,14 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class ControllerAdvisor {
 	
+	/**
+	 * Handles any illegalargumentexception so the whole API doesn't blows up if anything
+	 * goes wrong
+	 * @param ex
+	 * @param request
+	 * @return
+	 */
+	
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request){
 		Map<String,Object> body = new LinkedHashMap<>();
