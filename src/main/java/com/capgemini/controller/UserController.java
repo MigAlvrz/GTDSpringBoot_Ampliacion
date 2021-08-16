@@ -1,6 +1,6 @@
 package com.capgemini.controller;
 
-import java.net.http.HttpHeaders;
+import java.net.http.HttpHeaders; 
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.model.UserVO;
 import com.capgemini.service.UserService;
 import com.capgemini.service.security.Constants;
+import com.google.gson.Gson;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 
 @RestController
 @RequestMapping("/user")
@@ -32,8 +34,11 @@ public class UserController {
 	
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(UserVO user) {
-		UserVO newUser = userService.add(user);
+	public ResponseEntity<?> add(@RequestBody String body) {
+		Gson gson = new Gson();
+		UserVO newUser = gson.fromJson(body, UserVO.class);
+		System.out.println(newUser.getLogin()+ " "+ newUser.getEmail()+ " "+newUser.getPassword());
+		userService.add(newUser);
 		return checkNull(newUser);
 	}
 	
