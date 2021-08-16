@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.UserVO;
+import com.capgemini.repository.UserRepository;
 import com.capgemini.service.UserService;
 import com.capgemini.service.security.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
@@ -74,16 +76,16 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody String login){
+	public ResponseEntity<?> login(@RequestBody String body){
+		System.out.println(body);
 		UserVO user = null;
-		List<UserVO> users = userService.listAll();
-		System.out.println(users.size());
-		System.out.println("lo que llegó :"+ login);
-		for (UserVO userVO : users) {
-			System.out.println(userVO.getLogin()+" - "+login);
-			if(userVO.getLogin().equals(login))
-				user = userVO;
-		}
+		try {
+			user = checkIfUserExists(body);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 		if(user== null) {
 			System.out.println("no se encontró ese usuario");
 			return null;
@@ -107,6 +109,25 @@ public class UserController {
 		if(user!=null) 
 			return new ResponseEntity<>(user ,HttpStatus.OK);
 		return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+	}
+	
+	private UserVO checkIfUserExists(String body) throws JsonMappingException, JsonProcessingException {
+		JsonNode jsonBody = new ObjectMapper().readTree(body);
+		System.out.println(jsonBody);
+		UserVO user = null;
+
+		if (jsonBody.has("login")) {
+			user = userService.listAll().stream().filter(userVO -> jsonBody.path("login").asText().equals(userVO.getLogin())).findFirst().get();
+		} else if (jsonBody.has("email")) {
+			user = userService.listAll().stream().filter(userVO -> jsonBody.path("email").asText().equals(userVO.getEmail())).findFirst().get();
+		} else {
+			return null;
+		}
+		
+		if (jsonBody.has("password")&& jsonBody.path("password").asText().equals(user.getPassword()))
+			return user;
+		return null;
+		
 	}
 
 }
