@@ -12,11 +12,8 @@ Necesita servicios, repositorios serviceImpl
 
 Hay que hacer una tabla nueva -> Grupos
 
+Hay que pasar las vistas a thymleaf
 
 11/08/21
 
  - Pastor hace el modelo de la base de datos JPA, Antonio hace servicios y repositorios, Miguel va mirando las views co Thymeleaf
-
-13/08/21
-
-- Hechos los servicios, controladores y todo controlado con excepciones. Solo falta implementar los JWT. Al final no hará falta thymeleaf
