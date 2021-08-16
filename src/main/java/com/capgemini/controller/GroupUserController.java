@@ -22,6 +22,12 @@ public class GroupUserController {
 	@Autowired
 	GroupUserService grUsService;
 	
+	/**
+	 * Creates a GroupUserVO, then adds it to the DB
+	 * @param body
+	 * @return
+	 */
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@RequestBody String body){
 		GroupUserVO newGrUs = null;
@@ -35,11 +41,31 @@ public class GroupUserController {
 		return checkNull(grUs);
 	}
 	
+	
+	/**
+	 * Deletes a GroupUserVO from the DB
+	 * @param body
+	 * @return
+	 */
+	
 	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody GroupUserVO groupUser){
+	public ResponseEntity<?> delete(@RequestBody String body){
+		GroupUserVO groupUser = null;
+		try {
+			groupUser = new ObjectMapper().readValue(body, GroupUserVO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		GroupUserVO grUs = grUsService.delete(groupUser);
 		return checkNull(grUs);
 	}
+	
+	/**
+	 * Finds a GroupUserVo by it's Id, then deletes it from the DB
+	 * @param idgroupuser
+	 * @return
+	 */
 	
 	@DeleteMapping("/delete/{idgroupuser}")
 	public ResponseEntity<?> deleteById(@PathVariable int idgroupuser){
@@ -47,16 +73,34 @@ public class GroupUserController {
 		return checkNull(grUs);
 	}
 	
+	/**
+	 * returns all the existing GroupUserVOs from the DB
+	 * @return
+	 */
+	
 	@GetMapping("/listAll")
 	public ResponseEntity<?> findAll(){
 		return new ResponseEntity<>(grUsService.listAll(),HttpStatus.OK);
 	}
+	
+	/**
+	 * Finds a GroupUserVO by it's ID
+	 * @param idgroupuser
+	 * @return
+	 */
 	
 	@GetMapping("/find/{idgroupuser}")
 	public ResponseEntity<?> findById(@PathVariable int idgroupuser){
 		GroupUserVO grUs = grUsService.findById(idgroupuser);
 		return checkNull(grUs);
 	}
+	
+	/**
+	 * Checks if a GroupUserVO is correct, then returns an Ok httpStatus
+	 * otherwise, returns a Bad_Request
+	 * @param cat
+	 * @return
+	 */
 	
 	private ResponseEntity<?> checkNull(GroupUserVO grUs) {
 		if(grUs!=null)
