@@ -22,7 +22,7 @@ public class TaskController {
 	private TaskService taskService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(TaskVO task){
+	public ResponseEntity<?> add(@RequestBody TaskVO task){
 		TaskVO newTask = taskService.add(task);
 		return checkNull(newTask);
 	}
