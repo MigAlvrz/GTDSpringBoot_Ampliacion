@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.model.CategoryVO;
 import com.capgemini.model.TaskVO;
 import com.capgemini.model.UserVO;
+import com.capgemini.service.CategoryService;
 import com.capgemini.service.TaskService;
 import com.capgemini.service.UserService;
 
@@ -24,6 +26,8 @@ public class TaskController {
 	private TaskService taskService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CategoryService catService;
 
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@RequestBody TaskVO task) {
@@ -77,6 +81,16 @@ public class TaskController {
 		if (userService.findById(userId) != null) {
 			UserVO user = userService.findById(userId);
 			return new ResponseEntity<>(taskService.listWeekTask(user), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(userId, HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/listCategory/{userId}/{categoryId}")
+	public ResponseEntity<?> findCategory(@PathVariable int userId, @PathVariable int categoryId) {
+		if (userService.findById(userId) != null && catService.findById(categoryId)!=null) {
+			UserVO user = userService.findById(userId);
+			CategoryVO cat = catService.findById(categoryId);
+			return new ResponseEntity<>(taskService.listCategoryTask(user, cat), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(userId, HttpStatus.BAD_REQUEST);
 	}
