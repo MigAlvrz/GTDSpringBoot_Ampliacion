@@ -71,6 +71,15 @@ public class TaskController {
 		}
 		return new ResponseEntity<>(userId, HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/listWeek/{userId}")
+	public ResponseEntity<?> findWeek(@PathVariable int userId) {
+		if (userService.findById(userId) != null) {
+			UserVO user = userService.findById(userId);
+			return new ResponseEntity<>(taskService.listWeekTask(user), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(userId, HttpStatus.BAD_REQUEST);
+	}
 
 	private ResponseEntity<?> checkNull(TaskVO task) {
 		if (task != null)
