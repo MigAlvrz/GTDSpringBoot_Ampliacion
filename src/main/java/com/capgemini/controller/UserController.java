@@ -22,7 +22,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(UserVO user) {
+	public ResponseEntity<?> add(@RequestBody UserVO user) {
 		UserVO newUser = userService.add(user);
 		return checkNull(newUser);
 	}
