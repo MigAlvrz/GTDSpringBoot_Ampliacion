@@ -17,6 +17,7 @@ import com.capgemini.model.UserVO;
 import com.capgemini.service.CategoryService;
 import com.capgemini.service.TaskService;
 import com.capgemini.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/task")
@@ -30,8 +31,15 @@ public class TaskController {
 	private CategoryService catService;
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@RequestBody TaskVO task) {
-		TaskVO newTask = taskService.add(task);
+	public ResponseEntity<?> add(@RequestBody String body) {
+		TaskVO newTask = null;
+		try {
+			newTask = new ObjectMapper().readValue(body, TaskVO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		taskService.add(newTask);
 		return checkNull(newTask);
 	}
 

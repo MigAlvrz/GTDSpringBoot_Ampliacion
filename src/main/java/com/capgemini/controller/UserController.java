@@ -42,7 +42,6 @@ public class UserController {
 		try {
 			newUser = new ObjectMapper().readValue(body, UserVO.class);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

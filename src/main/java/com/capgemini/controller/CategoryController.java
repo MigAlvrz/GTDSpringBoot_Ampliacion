@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.CategoryVO;
 import com.capgemini.service.CategoryService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/category")
@@ -22,8 +23,15 @@ public class CategoryController {
 	CategoryService catService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@RequestBody CategoryVO category){
-		CategoryVO cat = catService.add(category);
+	public ResponseEntity<?> add(@RequestBody String body){
+		CategoryVO newCat = null;
+		try {
+			newCat = new ObjectMapper().readValue(body, CategoryVO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		CategoryVO cat = catService.add(newCat);
 		return checkNull(cat);
 	}
 	

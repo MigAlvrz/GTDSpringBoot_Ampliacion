@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.GroupVO;
 import com.capgemini.service.GroupService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/group")
@@ -21,8 +22,15 @@ public class GroupController {
 	GroupService grService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@RequestBody GroupVO group){
-		GroupVO gr = grService.add(group);
+	public ResponseEntity<?> add(@RequestBody String body){
+		GroupVO newGroup = null;
+		try {
+			newGroup = new ObjectMapper().readValue(body,GroupVO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		GroupVO gr = grService.add(newGroup);
 		return checkNull(gr);
 	}
 	
